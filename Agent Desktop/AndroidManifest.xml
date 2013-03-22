@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.adt.app"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="15" />
+
+    <application
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.adt.app.ADT"
+            android:label="@string/title_activity_working_hours_tracker" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.adt.app.CreateJobActivity"
+            android:label="@string/title_activity_create_task" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="app.activites.ADT" />
+        </activity>
+        <activity
+            android:name="com.adt.app.JobListActivity"
+            android:label="@string/title_activity_task_list" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="app.activites.ADT" />
+        </activity>
+        <activity
+            android:name="com.adt.app.JobActivity"
+            android:label="@string/title_activity_task" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="app.activites.TaskListActivity" />
+        </activity>
+        <activity
+            android:name="com.adt.app.UserProfileActivity"
+            android:label="@string/title_activity_user_profile" >
+        </activity>
+        <activity
+            android:name="com.adt.app.HoursActivity"
+            android:label="@string/title_activity_hours" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.adt.app.HoursListActivity" />
+        </activity>
+        <activity
+            android:name="com.adt.app.HoursListActivity"
+            android:label="@string/title_activity_hours" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.adt.app.ADT" />
+        </activity>
+    </application>
+
+</manifest>
