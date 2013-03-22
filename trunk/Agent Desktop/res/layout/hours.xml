@@ -1,0 +1,77 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:orientation="vertical">
+
+    <RadioGroup
+        android:id="@+id/h_radiobtn_group"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" >
+
+        <RadioButton
+            android:id="@+id/h_datewise_rbtn"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="@string/h_datewise_tv" />
+
+        <RadioButton
+            android:id="@+id/h_taskwise_rbtn"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="@string/h_taskwise_tv" />
+
+        <RadioButton
+            android:id="@+id/h_date_taskwise_rbtn"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="@string/h_date_taskwise_tv" />
+    </RadioGroup>
+
+    <TableLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:stretchColumns="*"
+        android:shrinkColumns="*">
+        
+        <TableRow 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            
+            <TextView 
+                android:id="@+id/h_dw_from_date_tv"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/h_from_date"/>
+            
+            <Button 
+                android:id="@+id/h_dw_from_date_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/date"/>
+        </TableRow>
+        <TableRow 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            
+            <TextView 
+                android:id="@+id/h_dw_to_date_tv"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/h_to_date"/>
+            
+            <Button 
+                android:id="@+id/h_dw_to_date_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/date"/>
+        </TableRow>
+    </TableLayout>
+</LinearLayout>

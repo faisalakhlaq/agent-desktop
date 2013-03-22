@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DFE1E7"
+    android:orientation="vertical" >
+
+    <include layout="@layout/header" >
+    </include>
+
+    <ScrollView
+        android:id="@+id/profile_scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/profile_fname_lbl"
+                    style="@style/ProfileTextView"
+                    android:text="@string/profile_fname_lbl" />
+
+                <EditText
+                    android:id="@+id/profile_fname_txt"
+                    style="@style/ProfileEditView"
+                    android:inputType="text" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/profile_lname_lbl"
+                    style="@style/ProfileTextView"
+                    android:text="@string/profile_lname_lbl" />
+
+                <EditText
+                    android:id="@+id/profile_lname_txt"
+                    style="@style/ProfileEditView"
+                    android:inputType="text" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/profile_email_lbl"
+                    style="@style/ProfileTextView"
+                    android:text="@string/profile_email_lbl" />
+
+                <EditText
+                    android:id="@+id/profile_email_txt"
+                    style="@style/ProfileEditView"
+                    android:inputType="text" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/profile_address_lbl"
+                    style="@style/ProfileTextView"
+                    android:text="@string/profile_address_lbl" />
+
+                <EditText
+                    android:id="@+id/profile_address_txt"
+                    style="@style/ProfileEditView"
+                    android:inputType="text" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/profile_submit_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profile_submit_btn_lbl" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Auther: Faisal Akhlaq -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DFE1E7"
+    android:orientation="vertical" >
+
+    <include layout="@layout/header" />
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="30dp" >
+
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/create_task_org_name_lbl"
+                    style="@style/TaskTextView"
+                    android:hint="@string/create_task_org_name_lbl_hint"
+                    android:text="@string/create_task_org_name_lbl" />
+
+                <EditText
+                    android:id="@+id/create_task_org_name_txt"
+                    style="@style/TaskEditView"
+                    android:inputType="text"
+                    android:scrollHorizontally="true" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/create_task_title_lbl"
+                    style="@style/TaskTextView"
+                    android:hint="@string/create_task_title_lbl_hint"
+                    android:text="@string/create_task_title_lbl" />
+
+                <EditText
+                    android:id="@+id/create_task_title_txt"
+                    style="@style/TaskEditView"
+                    android:inputType="text"
+                    android:scrollHorizontally="true" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/create_task_address_lbl"
+                    style="@style/TaskTextView"
+                    android:hint="@string/task_address_lbl_hint"
+                    android:text="@string/task_address_lbl" />
+
+                <EditText
+                    android:id="@+id/create_task_address_txt"
+                    style="@style/TaskEditView"
+                    android:inputType="textEmailAddress"
+                    android:scrollHorizontally="true" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/create_task_hourly_wage_lbl"
+                    style="@style/TaskTextView"
+                    android:hint="@string/create_task_hourly_wage_lbl_hint"
+                    android:text="@string/create_task_hourly_wage_lbl" />
+
+                <EditText
+                    android:id="@+id/create_task_hourly_wage_txt"
+                    style="@style/TaskEditView"
+                    android:inputType="number"
+                    android:scrollHorizontally="true" >
+                </EditText>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow5"
+                android:layout_width="wrap_content">
+
+                <TextView
+                    android:id="@+id/create_task_desc_lbl"
+                    style="@style/TaskTextView"
+                    android:hint="@string/create_task_desc_lbl_hint"
+                    android:text="@string/create_task_desc_lbl" />
+
+                <EditText
+                    android:id="@+id/create_task_desc_txt1"
+                    android:lines="3"
+                    style="@style/TaskEditView"
+                    android:inputType="text"
+                    android:scrollHorizontally="true" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow6"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1" >
+
+                <Button
+                    android:id="@+id/create_task_create_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight=".3"
+                    android:hint="@string/create_task_create_btn_hint"
+                    android:text="@string/create_task_create_btn" >
+                </Button>
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
+
+</LinearLayout>

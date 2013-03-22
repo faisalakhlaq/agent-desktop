@@ -1,0 +1,106 @@
+<resources>
+
+    <!-- Auther: Faisal Akhlaq -->
+
+    <string name="app_name">Working Hours Tracker</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+
+    <!-- adt -->
+
+    <string name="adt_chk_in_lbl">Check-IN</string>
+    <string name="adt_chk_out_lbl">Check-OUT</string>
+    <string name="adt_create_task_lbl">Create Job-Task</string>
+    <string name="adt_edit_task_lbl">Edit Job-Task</string>
+    <string name="adt_show_hours_lbl">Show Hours</string>
+    <string name="adt_edit_hours_lbl">Edit Hours</string>
+    <string name="adt_view_calendar_lbl">Calendar Events</string>
+    <string name="adt_calc_income_lbl">Calculate Income</string>
+    <string name="adt_exit_lbl">Exit</string>
+    
+    
+    <!-- working_hours_tracker -->
+
+    <string name="title_activity_working_hours_tracker">Working Hours Tracker</string>
+    <string name="working_hours_chk_in_btn_lbl">Check-IN</string>
+    <string name="working_hours_chk_in_btn_hint">check-in! start working on a job / task</string>
+    <string name="working_hours_chk_out_btn_lbl">Check-OUT</string>
+    <string name="working_hours_chk_out_btn_hint">check-out! stop working for a job / task</string>
+    <string name="working_hours_create_task_btn_lbl">Create Job-Task</string>
+    <string name="working_hours_create_task_btn_hint">create a new task / job on which I have started working</string>
+    <string name="working_hours_edit_task_btn_lbl">Edit Job-Task</string>
+    <string name="working_hours_edit_task_btn_hint">edit any task / job that you I created earlier</string>
+    <string name="working_hours_show_hours_btn_lbl">Show Hours</string>
+    <string name="working_hours_show_hours_btn_hint">display the hours worked</string>
+    <string name="working_hours_edit_hours_btn_lbl">Edit Hours</string>
+    <string name="working_hours_edit_hours_btn_hint">edit my work hours</string>
+    <string name="working_hours_view_calendar_btn_lbl">Calendar Events</string>
+    <string name="working_hours_view_calendar_btn_hint">display my calendar events</string>
+    <string name="working_hours_calc_income_btn_lbl">Calculate Income</string>
+    <string name="working_hours_calc_income_btn_hint">calculate income by setting the hourly rate for any task / job</string>
+    <string name="working_hours_exit_btn_lbl">Exit</string>
+    <string name="working_hours_exit_btn_hint">exit the working hours tracker</string>
+
+    <!-- Create New Task -->
+
+    <string name="title_activity_create_task">Create New Job - Task</string>
+    <string name="create_task_title_lbl">Title</string>
+    <string name="create_task_title_lbl_hint">title of the work / task</string>
+    <string name="create_task_org_name_lbl">Company</string>
+    <string name="create_task_org_name_lbl_hint">name of the company</string>
+    <string name="create_task_address_lbl">Address</string>
+    <string name="create_task_address_lbl_hint">address of the company</string>
+    <string name="create_task_hourly_wage_lbl">Hourly Wage</string>
+    <string name="create_task_hourly_wage_lbl_hint">hourly wage for this task</string>
+    <string name="create_task_desc_lbl">Description</string>
+    <string name="create_task_desc_lbl_hint">Job or task description</string>
+    <string name="create_task_create_btn">Create Job - Task</string>
+    <string name="create_task_create_btn_hint">create the new task</string>
+
+    <!-- Task List -->
+
+    <string name="title_activity_task_list">Task List</string>
+
+    <!-- Task -->
+
+    <string name="title_activity_task">Task - Job</string>
+    <string name="task_title_lbl">Title</string>
+    <string name="task_title_lbl_hint">title of the work - task</string>
+    <string name="task_org_name_lbl">Company</string>
+    <string name="task_org_name_lbl_hint">name of the company</string>
+    <string name="task_address_lbl">Address</string>
+    <string name="task_address_lbl_hint">address of the company</string>
+    <string name="task_hourly_wage_lbl">Hourly Wage</string>
+    <string name="task_hourly_wage_lbl_hint">hourly wage for this task</string>
+    <string name="task_desc_lbl">Description</string>
+    <string name="task_desc_lbl_hint">Description-Responsibilities</string>
+    <string name="task_create_btn">Create Job - Task</string>
+    <string name="task_create_btn_hint">create the new task</string>
+    <string name="task_edit_btn">Edit</string>
+    <string name="task_edit_btn_hint">edit this task - job</string>
+    <string name="task_delete_btn">Delete</string>
+    <string name="task_delete_btn_hint">delete this task - job</string>
+    <string name="task_created_on_lbl">Created on</string>
+
+    <!-- Profile -->
+    <string name="title_activity_user_profile">Profile</string>
+    <string name="profile_fname_lbl">First Name</string>
+    <string name="profile_lname_lbl">Last Name</string>
+    <string name="profile_address_lbl">Address</string>
+    <string name="profile_email_lbl">Email</string>
+    <string name="profile_submit_btn_lbl">Submit</string>
+    <string name="title_activity_hours">HoursActivity</string>
+
+    <!-- Hours List -->
+    <string name="hours_list_job_name_tv_lbl">Job-Task Title</string>
+    <string name="hours_list_total_hours_tv_lbl">Total Hours Spent</string>
+    
+    <!-- Hours -->
+    <string name="h_datewise_tv">Date wise</string>
+    <string name="h_taskwise_tv">Task wise</string>
+    <string name="h_date_taskwise_tv">Date and Task wise</string>
+    <string name="h_from_date">From</string>
+    <string name="h_to_date">To</string>
+    <string name="date">Date</string>
+    
+</resources>
