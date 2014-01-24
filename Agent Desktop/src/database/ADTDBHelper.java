@@ -61,13 +61,13 @@ public class ADTDBHelper extends SQLiteOpenHelper
 		try
 		{
 			String query = "CREATE TABLE IF NOT EXISTS " + JOBS_TABLE_NAME + " (" + "title TEXT PRIMARY KEY, " + "company TEXT, " + "hourly_wage FLOAT, "
-					+ "creation_date LONG, active BOOLEAN DEFAULT 'TRUE');";
+					+ "creation_date LONG, active BOOLEAN DEFAULT 'FALSE');";
 			db.execSQL(query);
 			db.execSQL("CREATE INDEX jobs_company_idx ON jobs(company);");
 			query = "CREATE TABLE IF NOT EXISTS  " + USERS_TABLE_NAME + " (first_name TEXT, last_name TEXT," + "email TEXT," + "admin INTEGER);";
 			db.execSQL(query);
 			query = "CREATE TABLE IF NOT EXISTS " + HOURS_TABLE_NAME + " (job_title TEXT, check_in_time LONG, check_out_time LONG, "
-					+ "total_hours LONG, active BOOLEAN DEFAULT 'TRUE');";
+					+ "total_hours LONG, active BOOLEAN DEFAULT 'FALSE');";
 			db.execSQL(query);
 		}
 		catch (Exception e)
@@ -104,16 +104,19 @@ public class ADTDBHelper extends SQLiteOpenHelper
 		return inserted;
 	}
 
-	public boolean insertHours(Hours h)
+	// TODO check if the user has not already checked in for this task
+	public boolean insertCheckInHours(Hours h)
 	{
 		boolean inserted = true;
 		// inserting only task and check-in time and the table will be updated
 		// on checkout
-		String query = "INSERT INTO hours(job_title, check_in_time) VALUES ('" + h.getJobTitle() + "', " + h.getCheckInTime() + ");";
+		String query = "INSERT INTO hours(job_title, check_in_time, active) VALUES ('" + h.getJobTitle() + "', " + h.getCheckInTime() + ", 'TRUE');";
+		String updateSQL = "Update jobs set active = 'TRUE' where title LIKE '" + h.getJobTitle() + "';";
 		try
 		{
 			openDataBase();
 			adtDB.execSQL(query);
+			adtDB.execSQL(updateSQL);
 		}
 		catch (Exception e)
 		{
@@ -136,11 +139,14 @@ public class ADTDBHelper extends SQLiteOpenHelper
 		{
 			openDataBase();
 			String jobTitle = h.getJobTitle();
-			String query = "SELECT check_in_time from hours where job_title = '" + jobTitle + "' and check_out_time is null;";
+			// String query =
+			// "SELECT check_in_time from hours where job_title = '" + jobTitle
+			// + "' and check_out_time is null;";
+			String query = "SELECT check_in_time from hours where job_title = '" + jobTitle + "' and active LIKE 'TRUE';";
 			cursor = adtDB.rawQuery(query, null);
-			int checkInTime = 0;
+			long checkInTime = 0;
 			while (cursor.moveToNext())
-				checkInTime = cursor.getInt(0);
+				checkInTime = cursor.getLong(0);
 
 			// calculate total work hours
 			long checkOutTime = h.getCheckOutTime();
@@ -148,8 +154,14 @@ public class ADTDBHelper extends SQLiteOpenHelper
 			Date out = new Date(checkOutTime);
 			// job_title TEXT, check_in_time LONG, check_out_time LONG,
 			// " + "total_hours LONG
-			query = "UPDATE hours set check_out_time = " + checkOutTime + ", total_hours = " + (out.getTime() - in.getTime()) + " WHERE job_title = '" + h.getJobTitle()
-					+ "' and check_out_time is NULL";
+			query = "UPDATE hours set check_out_time = " + checkOutTime + ", total_hours = " + (out.getTime() - in.getTime()) + ", active = 'FALSE' WHERE job_title = '"
+					+ h.getJobTitle() + "' and check_in_time = " + checkInTime + ";";
+			// query = "UPDATE hours set check_out_time = " + checkOutTime +
+			// ", total_hours = " + (out.getTime() - in.getTime()) +
+			// " WHERE job_title = '" + h.getJobTitle()
+			// + "' and check_out_time is NULL";
+			adtDB.execSQL(query);
+			query = "Update jobs set active = 'FALSE' where title LIKE '" + jobTitle + "';";
 			adtDB.execSQL(query);
 		}
 		catch (Exception e)
@@ -190,25 +202,25 @@ public class ADTDBHelper extends SQLiteOpenHelper
 
 	/**
 	 * @param title
-	 *            of the task to be changed, <p>
+	 *            of the task to be changed,
+	 *            <p>
 	 *            Job containing the new values
 	 * */
 	public boolean updateJob(String title, Job j)
 	{
 		boolean updated = true; // TODO check if this variable is unnecessary
-//"title TEXT PRIMARY KEY, " + "company TEXT, " + 
-		//"hourly_wage FLOAT, "
-	//	+ "creation_date LONG, active BOOLEAN DEFAULT 'TRUE');";
-		String query = "UPDATE jobs set title = '" + j.getTitle() +
-		"', company = '" + j.getOrganizationName() + "'," +
-		"hourly_wage = "+ j.getHourlyWages() + " WHERE title = '" + title + "';";
-		
+		// "title TEXT PRIMARY KEY, " + "company TEXT, " +
+		// "hourly_wage FLOAT, "
+		// + "creation_date LONG, active BOOLEAN DEFAULT 'TRUE');";
+		String query = "UPDATE jobs set title = '" + j.getTitle() + "', company = '" + j.getOrganizationName() + "'," + "hourly_wage = " + j.getHourlyWages() + " WHERE title = '"
+				+ title + "';";
+
 		try
 		{
 			openDataBase();
 			adtDB.execSQL(query);
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
 			e.getStackTrace();
 			updated = false;
@@ -226,7 +238,7 @@ public class ADTDBHelper extends SQLiteOpenHelper
 	public boolean removeJob(String title)
 	{
 		boolean removed = true;
-		String query = "DELETE FROM jobs where title = '" + title + "';";
+		String query = "DELETE FROM jobs where title LIKE '" + title + "';";
 		try
 		{
 			openDataBase();
@@ -235,6 +247,7 @@ public class ADTDBHelper extends SQLiteOpenHelper
 		catch (Exception e)
 		{
 			e.printStackTrace();
+			removed = false;
 		}
 		finally
 		{
@@ -243,14 +256,14 @@ public class ADTDBHelper extends SQLiteOpenHelper
 		return removed;
 	}
 
-	public ArrayList<String> getActiveJobNames()
+	private ArrayList<String> getJobNames(String query)
 	{
 		ArrayList<String> list = null;
 		Cursor cursor = null;
 		try
 		{
 			openDataBase();
-			cursor = adtDB.rawQuery("select title from jobs where active = 'TRUE'", null);
+			cursor = adtDB.rawQuery(query, null);
 			list = new ArrayList<String>(cursor.getCount());
 
 			while (cursor.moveToNext())
@@ -258,7 +271,7 @@ public class ADTDBHelper extends SQLiteOpenHelper
 		}
 		catch (Exception e)
 		{
-			Utils.println("getActiveJobNames ERROR = " + e);
+			Utils.println("get Job Names ERROR = " + e);
 		}
 		finally
 		{
@@ -268,13 +281,41 @@ public class ADTDBHelper extends SQLiteOpenHelper
 		return list;
 	}
 
-	public ArrayList<Job> getAllActiveJobs()
+	/**
+	 * Get the job/task name for which user has checked in currently
+	 * */
+	public ArrayList<String> getActiveJobNames()
+	{
+		String sql = "select title from jobs where active LIKE 'TRUE'";
+		return getJobNames(sql);
+	}
+
+	/**
+	 * Get the job/task name for which user has not checked in currently
+	 * */
+	public ArrayList<String> getInActiveJobNames()
+	{
+		String sql = "select title from jobs where active LIKE 'FALSE'";
+		return getJobNames(sql);
+	}
+
+	/**
+	 * get the names of all jobs active and inactive
+	 */
+	public ArrayList<String> getAllJobNames()
+	{
+		String sql = "select title from jobs";
+		return getJobNames(sql);
+	}
+
+	// TODO remove this method
+	public ArrayList<Job> getAllJobs()
 	{
 		ArrayList<Job> list = null;
 		Cursor cursor = null;
 		try
 		{
-			String query = "select * from jobs where active LIKE 'TRUE'";
+			String query = "select * from jobs";
 			openDataBase();
 			cursor = adtDB.rawQuery(query, null); // TODO check if the cursor
 													// can be null?
@@ -309,24 +350,88 @@ public class ADTDBHelper extends SQLiteOpenHelper
 	 */
 	public ArrayList<Hours> getHours()
 	{
-		// TODO get all the hours for a given task otherwise the tasks cannot be
-		// grouped
 		ArrayList<Hours> result = null;
+		ArrayList<String> jobNames = getAllJobNames();
+		if (jobNames == null) return result;
+		int noOfJobs = jobNames.size();
+		result = new ArrayList<Hours>(noOfJobs);
+
+		for (int i = 0; i < noOfJobs; i++)
+		{
+			Hours h = getTotalTaskHours(jobNames.get(i));
+			result.add(h);
+		}
+		return result;
+	}
+
+	/**
+	 * Get the details of hours.
+	 * <p>
+	 * Date, Checkin and Checkout time
+	 * **/
+	public ArrayList<Hours> getHoursDescription(String jobTitle)
+	{
+		ArrayList<Hours> list = null;
 		Cursor cursor = null;
 		try
 		{
+			String query = "select * from hours where job_title LIKE '" + jobTitle + "';";
 			openDataBase();
-			cursor = adtDB.rawQuery("Select * from hours;", null); // TODO
-			result = new ArrayList<Hours>(cursor.getCount());
+			cursor = adtDB.rawQuery(query, null); // TODO check if the cursor
+													// can be null?
+			list = new ArrayList<Hours>(cursor.getCount());
 
 			while (cursor.moveToNext())
 			{
 				Hours h = new Hours();
-				h.setJobTitle(cursor.getString(0));
-				h.setTotalHours(cursor.getInt(1));
-				h.setCheckOutTime(cursor.getInt(2));
+				h.setJobTitle(jobTitle);
+				h.setCheckInTime(cursor.getLong(1));
+				h.setCheckOutTime(cursor.getLong(2));
 				h.setTotalHours(cursor.getLong(3));
-				result.add(h);
+				list.add(h);
+			}
+		}
+		catch (Exception e)
+		{
+			Utils.println("getSearchResults ERROR = " + e);
+		}
+		finally
+		{
+			if (cursor != null) cursor.close();
+			close();
+		}
+		return list;
+	}
+
+	/**
+	 * Get the total time spent on a task
+	 * */
+	private Hours getTotalTaskHours(String taskName)
+	{
+		Hours hours = new Hours();
+		hours.setJobTitle(taskName);
+		Cursor cursor = null;
+		try
+		{
+			openDataBase();
+			cursor = adtDB.rawQuery("Select * from hours where job_title LIKE '" + taskName + "';", null);
+
+			while (cursor.moveToNext())
+			{
+				long checkInTime = cursor.getLong(1);
+				long totalHours = cursor.getLong(3);
+				boolean active = cursor.getString(4).equalsIgnoreCase("TRUE");
+				/*
+				 * if the total hours is zero and user has checked in for the
+				 * task it means he is still working on the task. In this case
+				 * total time wont be available. Therefore, we have to calculate
+				 * total time.
+				 */
+				if (totalHours == 0 && checkInTime != 0 && active)
+				{
+					totalHours = (new Date()).getTime() - (new Date(checkInTime)).getTime(); // FIXME
+				}
+				hours.setTotalHours(hours.getTotalHours() + totalHours);
 			}
 		}
 		catch (Exception e)
@@ -338,7 +443,7 @@ public class ADTDBHelper extends SQLiteOpenHelper
 			if (cursor != null) cursor.close();
 			close();
 		}
-		return result;
+		return hours;
 	}
 
 	public void createDataBase() throws IOException
@@ -409,7 +514,8 @@ public class ADTDBHelper extends SQLiteOpenHelper
 
 	public void openDataBase() throws SQLException
 	{
-		// TODO check if the database if already open then return the previous opened database
+		// TODO check if the database if already open then return the previous
+		// opened database
 		String myPath = DB_PATH + DB_NAME;
 		try
 		{
@@ -437,4 +543,24 @@ public class ADTDBHelper extends SQLiteOpenHelper
 		}
 	}
 
+	public boolean deleteHours(Hours hour)
+	{
+		boolean removed = true;
+		String query = "delete from hours where job_title LIKE '" + hour.getJobTitle() + "' and check_in_time = " + hour.getCheckInTime() + ";";
+		try
+		{
+			openDataBase();
+			adtDB.execSQL(query);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			removed = false;
+		}
+		finally
+		{
+			close();
+		}
+		return removed;
+	}
 }

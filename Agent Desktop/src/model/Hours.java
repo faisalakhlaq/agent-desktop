@@ -1,7 +1,16 @@
 package model;
 
-public class Hours
+import java.io.Serializable;
+
+public class Hours implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private boolean editMode = false;
+
 	private String jobTitle = null;
 
 	private long checkInTime = 0;
@@ -60,7 +69,7 @@ public class Hours
 		return checkOutTime;
 	}
 
-	public void setCheckOutTime(int checkOutTime)
+	public void setCheckOutTime(long checkOutTime)
 	{
 		this.checkOutTime = checkOutTime;
 	}
@@ -75,4 +84,13 @@ public class Hours
 		this.totalHours = totalHours;
 	}
 
+	public void setEditMode(boolean editMode_)
+	{
+		editMode = editMode_;
+	}
+	
+	public boolean isEditMode()
+	{
+		return editMode;
+	}
 }

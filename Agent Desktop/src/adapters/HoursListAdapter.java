@@ -1,9 +1,9 @@
 package adapters;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import model.Hours;
+import utils.Helper;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -52,20 +52,10 @@ public class HoursListAdapter extends ArrayAdapter<Hours>
 			ViewHolder holder = (ViewHolder) rowView.getTag();
 			holder.title.setText(hour.getJobTitle());
 			long totalHours = hour.getTotalHours();
-			if (totalHours == 0) totalHours = (new Date()).getTime() - hour.getCheckInTime();
-			holder.totalHours.setText(convertMS(totalHours));
+//			if (totalHours == 0) totalHours = (new Date()).getTime() - hour.getCheckInTime(); // FIXME
+			Helper helper = new Helper();
+			holder.totalHours.setText(helper.convertMS(totalHours));
 		}
 		return rowView;
-	}
-
-	public String convertMS(long ms)
-	{
-		// int seconds = (int) ((ms / 1000) % 60);
-		// int minutes = (int) (((ms / 1000) / 60) % 60);
-		// int hours = (int) ((((ms / 1000) / 60) / 60) % 24);
-
-		// if(hours == 0) return (((ms / 1000) / 60) % 60) + ":" + ((ms / 1000)
-		// % 60) + " mm:ss";
-		return ((((ms / 1000) / 60) / 60) % 24) + ":" + (((ms / 1000) / 60) % 60) + ":" + ((ms / 1000) % 60) + " hh:mm:ss";
 	}
 }

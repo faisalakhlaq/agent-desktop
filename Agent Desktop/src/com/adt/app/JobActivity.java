@@ -1,6 +1,7 @@
 package com.adt.app;
 
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import model.Job;
 import utils.Helper;
@@ -83,7 +84,7 @@ public class JobActivity extends Activity implements OnClickListener
 		orgName.setText(task.getOrganizationName());
 		title.setText(task.getTitle());
 		wages.setText(String.valueOf(task.getHourlyWages()));
-		date.setText((new SimpleDateFormat("dd-mm-yyyy").format(task.getCreationDate())).toString());
+		date.setText((new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(task.getCreationDate())));
 	}
 
 	private void addListenersToButtons()
@@ -110,7 +111,7 @@ public class JobActivity extends Activity implements OnClickListener
 		else if (v.getId() == R.id.task_delete_btn)
 		{
 			ADTDBHelper db = new ADTDBHelper(JobActivity.this);
-			if (db.removeJob(job.getTitle())) finish();
+			if (db.removeJob(job.getTitle())) finish();//FIXME check if the job is active. if not then delete
 		}
 		else if (v.getId() == R.id.task_edit_btn)
 		{
