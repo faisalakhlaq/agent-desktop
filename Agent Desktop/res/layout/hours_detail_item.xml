@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Auther: Faisal Akhlaq -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TableRow
+        android:id="@+id/hoursDetailItemtableRow"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:gravity="center_vertical" >
+
+        <ImageButton
+            android:id="@+id/hours_detail_item_delete_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/delete_icon"
+            android:contentDescription="@drawable/delete_icon"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/hours_detail_item_checkin_lbl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".20"
+            android:textIsSelectable="true" />
+
+        <TextView
+            android:id="@+id/hours_detail_item_checkout_lbl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".20"
+            android:textIsSelectable="true" />
+
+        <TextView
+            android:id="@+id/hours_detail_item_date_lbl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".20"
+            android:textIsSelectable="true" />
+
+        <TextView
+            android:id="@+id/hours_detail_item_duration_lbl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".20"
+            android:textIsSelectable="true" />
+    </TableRow>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#000000" />
+
+</LinearLayout>
