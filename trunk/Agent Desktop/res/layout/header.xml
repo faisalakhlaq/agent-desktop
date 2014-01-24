@@ -24,8 +24,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:background="@drawable/edit" />
+                android:background="@drawable/edit"
+                android:contentDescription="@drawable/edit" />
 
+<!--             <ImageButton
+                android:id="@+id/header_done_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/ok"
+                android:contentDescription="@drawable/ok"
+                android:visibility="gone" />
+ -->
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
@@ -42,7 +52,7 @@
                 <View
                     android:layout_width="1dp"
                     android:layout_height="fill_parent"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginRight="15dp"
                     android:background="#000000" />
 
                 <LinearLayout
@@ -56,7 +66,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:background="@drawable/add" />
+                        android:background="@drawable/add"
+                        android:contentDescription="@drawable/add" />
                 </LinearLayout>
             </LinearLayout>
         </TableRow>

@@ -103,4 +103,11 @@
     <string name="h_to_date">To</string>
     <string name="date">Date</string>
     
+    <!-- Hours Detail -->
+    <string name="hours_detail_checkin_lbl">Checkin</string>
+    <string name="hours_detail_checkout_lbl">Checkout</string>
+    <string name="hours_detail_date_lbl">Date</string>
+    <string name="hours_detail_duration_lbl">Duration</string>
+    
+    
 </resources>

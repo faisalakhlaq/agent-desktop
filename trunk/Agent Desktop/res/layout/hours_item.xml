@@ -1,25 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
- <!-- android:background="#DFE1E7" -->
+<!-- android:background="#DFE1E7" -->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="50dp" 
+    android:layout_height="50dp"
     android:background="@drawable/cell_bg"
     android:orientation="horizontal"
-    android:weightSum="1" >
+    android:weightSum="1" >
+
     <TextView
         android:id="@+id/job_name_tv"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="fill_parent"
         android:layout_marginLeft="10dp"
+        android:gravity="center_vertical"
         android:layout_weight=".5"
-        android:gravity="center" />
+         />
 
     <TextView
         android:id="@+id/total_hours_tv"
         android:layout_width="0dp"
-        android:layout_height="49dp"
+        android:layout_height="fill_parent"
         android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:gravity="center_vertical"
         android:layout_weight=".5"
-        android:gravity="center" />
+        />
 
 </LinearLayout>

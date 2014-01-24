@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Auther: Faisal Akhlaq -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DFE1E7"
+    android:orientation="vertical" >
+
+    <include layout="@layout/adt_header" />
+
+    <TableRow
+        android:id="@+id/hoursDetailtableRow"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp" >
+
+        <TextView
+            android:id="@+id/hours_detail_checkin_lbl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".25"
+            android:text="@string/hours_detail_checkin_lbl" />
+
+        <TextView
+            android:id="@+id/hours_detail_checkout_lbl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".25"
+            android:text="@string/hours_detail_checkout_lbl" />
+
+        <TextView
+            android:id="@+id/hours_detail_date_lbl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".25"
+            android:text="@string/hours_detail_date_lbl" />
+
+        <TextView
+            android:id="@+id/hours_detail_duration_lbl"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".25"
+            android:text="@string/hours_detail_duration_lbl" />
+    </TableRow>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#000000" />
+
+    <ListView
+        android:id="@+id/hours_detail_lv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
+
+</LinearLayout>
