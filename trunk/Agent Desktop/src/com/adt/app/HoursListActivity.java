@@ -1,29 +1,68 @@
 package com.adt.app;
 
+import model.Hours;
 import adapters.HoursListAdapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 import database.ADTDBHelper;
 
-public class HoursListActivity extends Activity implements OnClickListener
+public class HoursListActivity extends Activity implements OnItemClickListener, OnClickListener
 {
+	private HoursListAdapter adapter = null; // TODO check if these variables
+												// are
+
+	private ListView list = null;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState)
-	{ // TODO
+	{
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN, WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
 		setContentView(R.layout.hours_list);
+
 		ADTDBHelper db = new ADTDBHelper(this);
-		HoursListAdapter adapter = new HoursListAdapter(this, db.getHours());
-		ListView listView = (ListView) findViewById(R.id.hours_lv);
-		listView.setAdapter(adapter);
-		
+		adapter = new HoursListAdapter(this, db.getHours());
+		// HoursListAdapter adapter = new HoursListAdapter(this, db.getHours());
+
+		list = (ListView) findViewById(R.id.hours_lv);
+		// ListView list = (ListView) findViewById(R.id.hours_lv);
+		list.setAdapter(adapter);
+		list.setOnItemClickListener(this);
+		list.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+
 		ImageButton homeBtn = (ImageButton) findViewById(R.id.header_home);
 		homeBtn.setOnClickListener(this);
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+	{
+		HoursListAdapter adp = (HoursListAdapter) parent.getAdapter();
+		Hours hours = adp.getItem(position);
+
+		if (hours != null)
+		{
+			Intent i = new Intent(view.getContext(), HoursActivity.class);
+			i.putExtra("hours", hours); // TODO only send the job title
+			this.startActivity(i);
+		}
+		else
+		{
+			// TODO this should never be true CHECK - TEST
+			CharSequence msg = "Sorry the JOB details cannot be retrieved";
+			Toast.makeText(HoursListActivity.this, msg, Toast.LENGTH_SHORT).show();
+		}
 	}
 
 	@Override
@@ -35,4 +74,5 @@ public class HoursListActivity extends Activity implements OnClickListener
 			startActivity(i);
 		}
 	}
+
 }

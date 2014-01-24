@@ -50,7 +50,7 @@ public class JobListActivity extends Activity implements OnItemClickListener, On
 	private void fillTaskList()
 	{
 		ADTDBHelper db = new ADTDBHelper(this);
-		taskList = db.getAllActiveJobs();
+		taskList = db.getAllJobs();
 	}
 
 	@Override
