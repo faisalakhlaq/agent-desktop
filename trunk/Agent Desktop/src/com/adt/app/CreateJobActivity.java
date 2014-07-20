@@ -1,7 +1,9 @@
 package com.adt.app;
 
-import model.Job;
-import utils.Helper;
+import com.adt.database.ADTDBHelper;
+import com.adt.model.Job;
+import com.adt.utils.Helper;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,11 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
-import database.ADTDBHelper;
 
 public class CreateJobActivity extends Activity implements OnClickListener
 {
-	// TODO make the description buttton 3 lines hight
+	// TODO make the description button 3 lines height
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -46,7 +47,6 @@ public class CreateJobActivity extends Activity implements OnClickListener
 		}
 		else if (v.getId() == R.id.create_task_create_btn)
 		{
-			// TODO Auto-generated method stub
 			EditText t = (EditText) findViewById(R.id.create_task_title_txt);
 			EditText c = (EditText) findViewById(R.id.create_task_org_name_txt);
 			EditText a = (EditText) findViewById(R.id.create_task_address_txt);
@@ -89,5 +89,4 @@ public class CreateJobActivity extends Activity implements OnClickListener
 			}
 		}
 	}
-
 }

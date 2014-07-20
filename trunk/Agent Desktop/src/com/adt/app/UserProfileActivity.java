@@ -1,6 +1,8 @@
 package com.adt.app;
 
-import model.User;
+import com.adt.database.ADTDBHelper;
+import com.adt.model.User;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
-import database.ADTDBHelper;
 
 public class UserProfileActivity extends Activity implements OnClickListener
 {
