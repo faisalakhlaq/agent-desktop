@@ -2,10 +2,6 @@ package com.adt.app;
 
 import java.util.ArrayList;
 
-import model.Hours;
-import utils.Notifier;
-import utils.Utils;
-import adapters.HoursDetailAdapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,17 +12,23 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
-import database.ADTDBHelper;
 
-public class HoursActivity extends Activity implements OnClickListener, Notifier
+import com.adt.adapters.HoursDetailAdapter;
+import com.adt.database.ADTDBHelper;
+import com.adt.model.WorkHours;
+import com.adt.utils.Notifier;
+import com.adt.utils.Utils;
+
+public class HoursDetailActivity extends Activity implements OnClickListener, Notifier
 {
 	private HoursDetailAdapter adapter;
 
-	private ArrayList<Hours> hoursList;
+	private ArrayList<WorkHours> hoursList;
 
 	private ADTDBHelper db;
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
@@ -35,12 +37,19 @@ public class HoursActivity extends Activity implements OnClickListener, Notifier
 		setContentView(R.layout.hours_detail);
 
 		Intent i = getIntent();
-		Hours hours = (Hours) i.getSerializableExtra("hours");
-		// TODO get the job title
+		String callerActivity = i.getStringExtra("activity");
+		// if ("DisplayHoursActivity".equals(caller.getClassName()))
+		if ("DisplayHoursActivity".equals(callerActivity))
+		{
+			hoursList = (ArrayList<WorkHours>) i.getSerializableExtra("hours");
+		}
+		else
+		{
+			String jobTitle = (String) i.getStringExtra("job-title");
 
-		String title = hours.getJobTitle();
-		db = new ADTDBHelper(this);
-		hoursList = db.getHoursDescription(title);
+			db = new ADTDBHelper(this);
+			hoursList = db.getHoursDescription(jobTitle);
+		}
 		adapter = new HoursDetailAdapter(this, hoursList);
 		adapter.setNotifier(this);
 
@@ -66,8 +75,8 @@ public class HoursActivity extends Activity implements OnClickListener, Notifier
 			adapter.clear();
 			for (int i = 0; i < hoursList.size(); i++)
 			{
-				Hours hour = hoursList.get(i);
-				((Hours) hoursList.get(i)).setEditMode(true);
+				WorkHours hour = hoursList.get(i);
+				((WorkHours) hoursList.get(i)).setEditMode(true);
 				adapter.add(hour);
 			}
 			adapter.notifyDataSetChanged();
@@ -90,7 +99,7 @@ public class HoursActivity extends Activity implements OnClickListener, Notifier
 			doneBtn.setVisibility(View.VISIBLE);
 			for (int i = 0; i < hoursList.size(); i++)
 			{
-				((Hours) hoursList.get(i)).setEditMode(true);
+				((WorkHours) hoursList.get(i)).setEditMode(true);
 			}
 			adapter.notifyDataSetChanged();
 		}
@@ -102,7 +111,7 @@ public class HoursActivity extends Activity implements OnClickListener, Notifier
 			doneBtn.setVisibility(View.GONE);
 			for (int i = 0; i < hoursList.size(); i++)
 			{
-				((Hours) hoursList.get(i)).setEditMode(false);
+				((WorkHours) hoursList.get(i)).setEditMode(false);
 			}
 			adapter.notifyDataSetChanged();
 		}
@@ -111,25 +120,25 @@ public class HoursActivity extends Activity implements OnClickListener, Notifier
 	@Override
 	public void notify(Object data, String type)
 	{
-		Hours hour = (Hours) data;
+		WorkHours hour = (WorkHours) data;
 		Utils.println("Deleting hours" + hour.getJobTitle());
 		if (db.deleteHours(hour))
 		{
 			CharSequence msg = "Selection deleted";
-			Toast.makeText(HoursActivity.this, msg, Toast.LENGTH_SHORT).show();
+			Toast.makeText(HoursDetailActivity.this, msg, Toast.LENGTH_SHORT).show();
 			refreshData();
 		}
 		else
 		{
 			CharSequence msg = "Error while deleting";
-			Toast.makeText(HoursActivity.this, msg, Toast.LENGTH_SHORT).show();
+			Toast.makeText(HoursDetailActivity.this, msg, Toast.LENGTH_SHORT).show();
 		}
 	}
 
 	private void refreshData()
 	{
 		Intent i = getIntent();
-		Hours hours = (Hours) i.getSerializableExtra("hours");
+		WorkHours hours = (WorkHours) i.getSerializableExtra("hours");
 		// TODO get the job title
 
 		String title = hours.getJobTitle();

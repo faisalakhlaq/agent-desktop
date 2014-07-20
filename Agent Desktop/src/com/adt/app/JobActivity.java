@@ -3,8 +3,10 @@ package com.adt.app;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-import model.Job;
-import utils.Helper;
+import com.adt.database.ADTDBHelper;
+import com.adt.model.Job;
+import com.adt.utils.Helper;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +16,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
-import database.ADTDBHelper;
 
 public class JobActivity extends Activity implements OnClickListener
 {

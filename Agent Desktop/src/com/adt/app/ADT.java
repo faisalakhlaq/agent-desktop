@@ -3,7 +3,9 @@ package com.adt.app;
 import java.util.ArrayList;
 import java.util.Date;
 
-import model.Hours;
+import com.adt.database.ADTDBHelper;
+import com.adt.model.WorkHours;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -15,7 +17,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
-import database.ADTDBHelper;
 
 /*
  * Auther: Faisal Akhlaq
@@ -31,7 +32,7 @@ public class ADT extends Activity implements OnClickListener
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN, WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
-//		setContentView(R.layout.adt);
+		// setContentView(R.layout.adt);
 		setContentView(R.layout.working_hours_tracker);
 
 		db = new ADTDBHelper(ADT.this);
@@ -41,23 +42,27 @@ public class ADT extends Activity implements OnClickListener
 
 	private void addListeners()
 	{
-//		TextView checkIn = (TextView) findViewById(R.id.adt_chk_in_lbl);
-//		checkIn.setOnClickListener(this);
-//
-//		TextView checkOut = (TextView) findViewById(R.id.adt_chk_out_lbl);
-//		checkOut.setOnClickListener(this);
+		// TextView checkIn = (TextView) findViewById(R.id.adt_chk_in_lbl);
+		// checkIn.setOnClickListener(this);
+		//
+		// TextView checkOut = (TextView) findViewById(R.id.adt_chk_out_lbl);
+		// checkOut.setOnClickListener(this);
 
 		Button checkIn = (Button) findViewById(R.id.working_hours_chk_in_btn);
 		checkIn.setOnClickListener(this);
-		
+
 		Button checkOut = (Button) findViewById(R.id.working_hours_chk_out_btn);
 		checkOut.setOnClickListener(this);
+
+		Button myHours = (Button) findViewById(R.id.working_hours_my_hours);
+		myHours.setOnClickListener(this);
 	}
 
 	private void congifureButtons()
 	{
 		configCreateTaskBtn();
 		configEditTaskBtn();
+		// configureMyHoursBtn();
 
 		configShowHoursBtn();
 		configEditHoursBtn();
@@ -87,7 +92,6 @@ public class ADT extends Activity implements OnClickListener
 	private void configShowHoursBtn()
 	{
 		Button showHours = (Button) findViewById(R.id.working_hours_show_hours_btn_lbl);
-//		TextView showHours = (TextView) findViewById(R.id.adt_show_hours_lbl);
 		showHours.setOnClickListener(new OnClickListener()
 		{
 			@Override
@@ -103,7 +107,8 @@ public class ADT extends Activity implements OnClickListener
 	{
 		// TODO implement a separate listener for each task
 		Button editTaskBtn = (Button) findViewById(R.id.working_hours_edit_task_btn);
-//		TextView editTaskBtn = (TextView) findViewById(R.id.adt_edit_hours_lbl);
+		// TextView editTaskBtn = (TextView)
+		// findViewById(R.id.adt_edit_hours_lbl);
 		if (editTaskBtn != null)
 		{
 			editTaskBtn.setOnClickListener(new OnClickListener()
@@ -120,7 +125,8 @@ public class ADT extends Activity implements OnClickListener
 
 	private void configCreateTaskBtn()
 	{
-//		TextView createTaskBtn = (TextView) findViewById(R.id.adt_create_task_lbl);
+		// TextView createTaskBtn = (TextView)
+		// findViewById(R.id.adt_create_task_lbl);
 		Button createTaskBtn = (Button) findViewById(R.id.working_hours_create_task_btn);
 		if (createTaskBtn != null)
 		{
@@ -156,10 +162,11 @@ public class ADT extends Activity implements OnClickListener
 		{
 			public void onClick(DialogInterface dialog, int item)
 			{
-				Hours h = new Hours();
+				WorkHours h = new WorkHours();
 				h.setJobTitle(String.valueOf(items[item]));
 				h.setCheckOutTime(Long.valueOf(new Date().getTime()));
-//				h.setCheckOutTime(Long.valueOf(new Date().getTime()).intValue());
+				// h.setCheckOutTime(Long.valueOf(new
+				// Date().getTime()).intValue());
 				// TODO insert into the database in a background thread
 				if (db.insertCheckOutHours(h)) Toast.makeText(getApplicationContext(), items[item], Toast.LENGTH_SHORT).show();
 				// TODO show failure message
@@ -189,12 +196,16 @@ public class ADT extends Activity implements OnClickListener
 		{
 			public void onClick(DialogInterface dialog, int item)
 			{
-				Hours h = new Hours();
+				WorkHours h = new WorkHours();
 				h.setJobTitle(String.valueOf(items[item]));
-				long time = Long.valueOf(new Date().getTime()); // TODO remove the local variable
-				String date = new Date(time).toString(); // Date returned is not correct 
+				long time = Long.valueOf(new Date().getTime()); // TODO remove
+																// the local
+																// variable
+				// String date = new Date(time).toString(); // Date returned is
+				// not correct
 				h.setCheckInTime(time);
-//				h.setCheckInTime(Long.valueOf(new Date().getTime()).intValue());
+				// h.setCheckInTime(Long.valueOf(new
+				// Date().getTime()).intValue());
 				// TODO insert into the database in a background thread
 				if (db.insertCheckInHours(h)) Toast.makeText(getApplicationContext(), items[item], Toast.LENGTH_SHORT).show();
 			}
@@ -208,7 +219,9 @@ public class ADT extends Activity implements OnClickListener
 	{
 		if (v.getId() == (R.id.working_hours_chk_in_btn))
 		{
-			checkIn(db.getInActiveJobNames()); // Get the inactive jobs. jobs will be made active once the user checks in for a job
+			checkIn(db.getInActiveJobNames()); // Get the inactive jobs. jobs
+												// will be made active once the
+												// user checks in for a job
 		}
 		else if (v.getId() == (R.id.working_hours_chk_out_btn))
 		{
@@ -218,6 +231,11 @@ public class ADT extends Activity implements OnClickListener
 		{
 			Intent intent = new Intent(ADT.this, JobListActivity.class);
 			startActivity(intent);
+		}
+		else if (v.getId() == R.id.working_hours_my_hours)
+		{
+			Intent i = new Intent(ADT.this, DisplayHoursActivity.class);
+			startActivity(i);
 		}
 	}
 

@@ -1,7 +1,9 @@
 package com.adt.app;
 
-import model.Hours;
-import adapters.HoursListAdapter;
+import com.adt.adapters.HoursListAdapter;
+import com.adt.database.ADTDBHelper;
+import com.adt.model.WorkHours;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +16,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
-import database.ADTDBHelper;
 
 public class HoursListActivity extends Activity implements OnItemClickListener, OnClickListener
 {
@@ -49,12 +50,12 @@ public class HoursListActivity extends Activity implements OnItemClickListener, 
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 	{
 		HoursListAdapter adp = (HoursListAdapter) parent.getAdapter();
-		Hours hours = adp.getItem(position);
+		WorkHours hours = adp.getItem(position);
 
 		if (hours != null)
 		{
-			Intent i = new Intent(view.getContext(), HoursActivity.class);
-			i.putExtra("hours", hours); // TODO only send the job title
+			Intent i = new Intent(view.getContext(), HoursDetailActivity.class);
+			i.putExtra("job-title", hours.getJobTitle().trim());
 			this.startActivity(i);
 		}
 		else

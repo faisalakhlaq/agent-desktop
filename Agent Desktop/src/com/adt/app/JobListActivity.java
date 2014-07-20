@@ -2,8 +2,10 @@ package com.adt.app;
 
 import java.util.ArrayList;
 
-import model.Job;
-import adapters.JobListAdapter;
+import com.adt.adapters.JobListAdapter;
+import com.adt.database.ADTDBHelper;
+import com.adt.model.Job;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +18,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
-import database.ADTDBHelper;
 
 public class JobListActivity extends Activity implements OnItemClickListener, OnClickListener
 {
