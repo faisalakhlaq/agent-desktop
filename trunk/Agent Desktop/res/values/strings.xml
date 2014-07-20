@@ -2,23 +2,9 @@
 
     <!-- Auther: Faisal Akhlaq -->
 
-    <string name="app_name">Working Hours Tracker</string>
+    <string name="app_name">ADT</string>
     <string name="hello_world">Hello world!</string>
-    <string name="menu_settings">Settings</string>
 
-    <!-- adt -->
-
-    <string name="adt_chk_in_lbl">Check-IN</string>
-    <string name="adt_chk_out_lbl">Check-OUT</string>
-    <string name="adt_create_task_lbl">Create Job-Task</string>
-    <string name="adt_edit_task_lbl">Edit Job-Task</string>
-    <string name="adt_show_hours_lbl">Show Hours</string>
-    <string name="adt_edit_hours_lbl">Edit Hours</string>
-    <string name="adt_view_calendar_lbl">Calendar Events</string>
-    <string name="adt_calc_income_lbl">Calculate Income</string>
-    <string name="adt_exit_lbl">Exit</string>
-    
-    
     <!-- working_hours_tracker -->
 
     <string name="title_activity_working_hours_tracker">Working Hours Tracker</string>
@@ -40,6 +26,7 @@
     <string name="working_hours_calc_income_btn_hint">calculate income by setting the hourly rate for any task / job</string>
     <string name="working_hours_exit_btn_lbl">Exit</string>
     <string name="working_hours_exit_btn_hint">exit the working hours tracker</string>
+    <string name="working_hours_my_hours_lbl">My Hours</string>
 
     <!-- Create New Task -->
 
@@ -94,7 +81,7 @@
     <!-- Hours List -->
     <string name="hours_list_job_name_tv_lbl">Job-Task Title</string>
     <string name="hours_list_total_hours_tv_lbl">Total Hours Spent</string>
-    
+
     <!-- Hours -->
     <string name="h_datewise_tv">Date wise</string>
     <string name="h_taskwise_tv">Task wise</string>
@@ -102,12 +89,26 @@
     <string name="h_from_date">From</string>
     <string name="h_to_date">To</string>
     <string name="date">Date</string>
-    
+
     <!-- Hours Detail -->
-    <string name="hours_detail_checkin_lbl">Checkin</string>
-    <string name="hours_detail_checkout_lbl">Checkout</string>
+    <string name="hours_detail_checkin_lbl">Check in</string>
+    <string name="hours_detail_checkout_lbl">Check out</string>
     <string name="hours_detail_date_lbl">Date</string>
     <string name="hours_detail_duration_lbl">Duration</string>
-    
-    
+
+    <!-- Display Hours Options -->
+    <string name="dho_spinner_prompt">Select</string>
+    <string name="dho_display_all">Display All</string>
+    <string name="dho_show_btn_lbl">Show Hours</string>
+
+    <!-- ADT -->
+    <string name="adt_create_task_lbl">Create Task</string>
+    <string name="adt_chk_in_lbl">Check in</string>
+    <string name="adt_chk_out_lbl">Check out</string>
+    <string name="adt_edit_task_lbl">Edit Task</string>
+    <string name="adt_show_hours_lbl">Show Hours</string>
+    <string name="adt_edit_hours_lbl">Edit Hours</string>
+    <string name="adt_calc_income_lbl">Calculate Income</string>
+    <string name="adt_view_calendar_lbl">Calendar</string>
+
 </resources>

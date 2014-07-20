@@ -10,6 +10,7 @@
         android:id="@+id/hoursDetailItemtableRow"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/cell"
         android:gravity="center_vertical"
         android:paddingLeft="10dp" >
 
