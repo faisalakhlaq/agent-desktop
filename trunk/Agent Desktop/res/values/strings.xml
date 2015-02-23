@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <!-- Auther: Faisal Akhlaq -->
@@ -20,7 +21,7 @@
     <string name="working_hours_show_hours_btn_hint">display the hours worked</string>
     <string name="working_hours_edit_hours_btn_lbl">Edit Hours</string>
     <string name="working_hours_edit_hours_btn_hint">edit my work hours</string>
-    <string name="working_hours_view_calendar_btn_lbl">Calendar Events</string>
+    <string name="wht_addhour_btn_lbl">Add Hours</string>
     <string name="working_hours_view_calendar_btn_hint">display my calendar events</string>
     <string name="working_hours_calc_income_btn_lbl">Calculate Income</string>
     <string name="working_hours_calc_income_btn_hint">calculate income by setting the hourly rate for any task / job</string>
@@ -110,5 +111,7 @@
     <string name="adt_edit_hours_lbl">Edit Hours</string>
     <string name="adt_calc_income_lbl">Calculate Income</string>
     <string name="adt_view_calendar_lbl">Calendar</string>
+    <string name="title_activity_add_hours">Add Hours</string>
+    <string name="action_settings">Settings</string>
 
 </resources>
