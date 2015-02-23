@@ -7,9 +7,6 @@ public class Job implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 
-	// TODO Activate and deactivate a task (DEFAULT value true)
-	// Create active field in the table and when the user quits the job
-	// s/he can deactivate or delete the task.
 	private String title = null;
 
 	private String organizationName = null;
@@ -17,11 +14,14 @@ public class Job implements Serializable
 	private String address = null;
 
 	private String duties = null;
-	private String description = null; // TODO still to be implemented
+
+	private String description = null;
 
 	private float hourlyWages = 0;
 
 	private Date creationDate = null;
+
+	private boolean active = false;
 
 	public Job()
 	{
@@ -75,7 +75,7 @@ public class Job implements Serializable
 		this.title = title;
 	}
 
-	public String getOrganizationName()
+	public String getCompanyName()
 	{
 		return organizationName;
 	}
@@ -123,6 +123,16 @@ public class Job implements Serializable
 	public void setDescription(String description)
 	{
 		this.description = description;
+	}
+
+	public boolean isActive()
+	{
+		return active;
+	}
+
+	public void setActive(boolean active)
+	{
+		this.active = active;
 	}
 
 }

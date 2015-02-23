@@ -1,10 +1,7 @@
 package com.adt.app;
 
 import java.util.ArrayList;
-import java.util.Date;
-
-import com.adt.database.ADTDBHelper;
-import com.adt.model.WorkHours;
+import java.util.Calendar;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -18,8 +15,13 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.adt.database.ADTDBHelper;
+import com.adt.model.WorkHours;
+import com.adt.utils.Helper;
+import com.adt.utils.Utils;
+
 /*
- * Auther: Faisal Akhlaq
+ * Author: Faisal Akhlaq
  * */
 
 public class ADT extends Activity implements OnClickListener
@@ -40,14 +42,51 @@ public class ADT extends Activity implements OnClickListener
 		congifureButtons();
 	}
 
+	@Override
+	public void onClick(View v)
+	{
+		switch (v.getId())
+		{
+		case R.id.working_hours_chk_in_btn:
+		{
+			// Get the inactive jobs. jobs
+			// will be made active once the
+			// user checks in for a job
+			checkIn(db.getInActiveJobNames());
+			break;
+		}
+		case R.id.working_hours_chk_out_btn:
+		{
+			checkOut(db.getActiveJobNames());
+			break;
+		}
+		// case R.id.adt_edit_task_lbl:
+		// {
+		// Intent intent = new Intent(ADT.this, JobListActivity.class);
+		// startActivity(intent);
+		// break;
+		// }
+		case R.id.working_hours_my_hours:
+		{
+			Intent i = new Intent(ADT.this, DisplayHoursActivity.class);
+			startActivity(i);
+			break;
+		}
+		case R.id.wht_addhour_btn:
+		{
+			Utils u = new Utils();
+			u.showMessage("Sorry", "Feature not available", this).run();
+			break;
+		}
+		default:
+		{
+			break;
+		}
+		}
+	}
+
 	private void addListeners()
 	{
-		// TextView checkIn = (TextView) findViewById(R.id.adt_chk_in_lbl);
-		// checkIn.setOnClickListener(this);
-		//
-		// TextView checkOut = (TextView) findViewById(R.id.adt_chk_out_lbl);
-		// checkOut.setOnClickListener(this);
-
 		Button checkIn = (Button) findViewById(R.id.working_hours_chk_in_btn);
 		checkIn.setOnClickListener(this);
 
@@ -56,31 +95,18 @@ public class ADT extends Activity implements OnClickListener
 
 		Button myHours = (Button) findViewById(R.id.working_hours_my_hours);
 		myHours.setOnClickListener(this);
+
+		Button addHours = (Button) findViewById(R.id.wht_addhour_btn);
+		addHours.setOnClickListener(this);
 	}
 
 	private void congifureButtons()
 	{
 		configCreateTaskBtn();
 		configEditTaskBtn();
-		// configureMyHoursBtn();
 
 		configShowHoursBtn();
 		configEditHoursBtn();
-
-		configCalendarEventsBtn();
-		configCalculateIncomeBtn();
-	}
-
-	private void configCalculateIncomeBtn()
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	private void configCalendarEventsBtn()
-	{
-		// TODO Auto-generated method stub
-
 	}
 
 	private void configEditHoursBtn()
@@ -105,10 +131,7 @@ public class ADT extends Activity implements OnClickListener
 
 	private void configEditTaskBtn()
 	{
-		// TODO implement a separate listener for each task
-		Button editTaskBtn = (Button) findViewById(R.id.working_hours_edit_task_btn);
-		// TextView editTaskBtn = (TextView)
-		// findViewById(R.id.adt_edit_hours_lbl);
+		Button editTaskBtn = (Button) findViewById(R.id.wht_edit_task_btn);
 		if (editTaskBtn != null)
 		{
 			editTaskBtn.setOnClickListener(new OnClickListener()
@@ -125,8 +148,6 @@ public class ADT extends Activity implements OnClickListener
 
 	private void configCreateTaskBtn()
 	{
-		// TextView createTaskBtn = (TextView)
-		// findViewById(R.id.adt_create_task_lbl);
 		Button createTaskBtn = (Button) findViewById(R.id.working_hours_create_task_btn);
 		if (createTaskBtn != null)
 		{
@@ -144,11 +165,11 @@ public class ADT extends Activity implements OnClickListener
 
 	private void checkOut(ArrayList<String> jobNameList)
 	{
-		// TODO execute this job in another thread
+		// TODO execute this job in another thread??
 		if (jobNameList == null || jobNameList.size() < 1)
 		{
-			CharSequence msg = "No checked in job or there is no job";
-			Toast.makeText(ADT.this, msg, Toast.LENGTH_SHORT).show();
+			Utils u = new Utils();
+			u.showMessage("Sorry", "No checked in job or there is no job", this).run();
 			return;
 		}
 		int l = jobNameList.size();
@@ -164,10 +185,9 @@ public class ADT extends Activity implements OnClickListener
 			{
 				WorkHours h = new WorkHours();
 				h.setJobTitle(String.valueOf(items[item]));
-				h.setCheckOutTime(Long.valueOf(new Date().getTime()));
-				// h.setCheckOutTime(Long.valueOf(new
-				// Date().getTime()).intValue());
-				// TODO insert into the database in a background thread
+				long time = Calendar.getInstance().getTimeInMillis();
+				time += Helper.getTimeOffset(time);
+				h.setCheckOutTime(time);
 				if (db.insertCheckOutHours(h)) Toast.makeText(getApplicationContext(), items[item], Toast.LENGTH_SHORT).show();
 				// TODO show failure message
 			}
@@ -178,11 +198,11 @@ public class ADT extends Activity implements OnClickListener
 
 	private void checkIn(ArrayList<String> jobNameList)
 	{
-		// TODO execute this job in another thread
+		// TODO execute this job in another thread??
 		if (jobNameList == null || jobNameList.size() < 1)
 		{
-			CharSequence msg = "Either you checked in already or there is no job to check-in";
-			Toast.makeText(ADT.this, msg, Toast.LENGTH_SHORT).show();
+			Utils u = new Utils();
+			u.showMessage("Sorry", "Either you checked-in already or there is no job to check-in", this).run();
 			return;
 		}
 		int l = jobNameList.size();
@@ -198,45 +218,14 @@ public class ADT extends Activity implements OnClickListener
 			{
 				WorkHours h = new WorkHours();
 				h.setJobTitle(String.valueOf(items[item]));
-				long time = Long.valueOf(new Date().getTime()); // TODO remove
-																// the local
-																// variable
-				// String date = new Date(time).toString(); // Date returned is
-				// not correct
+				long time = Calendar.getInstance().getTimeInMillis();
+				time += Helper.getTimeOffset(time);
 				h.setCheckInTime(time);
-				// h.setCheckInTime(Long.valueOf(new
-				// Date().getTime()).intValue());
-				// TODO insert into the database in a background thread
 				if (db.insertCheckInHours(h)) Toast.makeText(getApplicationContext(), items[item], Toast.LENGTH_SHORT).show();
 			}
 		});
 		AlertDialog alert = builder.create();
 		alert.show();
-	}
-
-	@Override
-	public void onClick(View v)
-	{
-		if (v.getId() == (R.id.working_hours_chk_in_btn))
-		{
-			checkIn(db.getInActiveJobNames()); // Get the inactive jobs. jobs
-												// will be made active once the
-												// user checks in for a job
-		}
-		else if (v.getId() == (R.id.working_hours_chk_out_btn))
-		{
-			checkOut(db.getActiveJobNames());
-		}
-		else if (v.getId() == R.id.adt_edit_task_lbl)
-		{
-			Intent intent = new Intent(ADT.this, JobListActivity.class);
-			startActivity(intent);
-		}
-		else if (v.getId() == R.id.working_hours_my_hours)
-		{
-			Intent i = new Intent(ADT.this, DisplayHoursActivity.class);
-			startActivity(i);
-		}
 	}
 
 }

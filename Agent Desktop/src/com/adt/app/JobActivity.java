@@ -3,10 +3,6 @@ package com.adt.app;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-import com.adt.database.ADTDBHelper;
-import com.adt.model.Job;
-import com.adt.utils.Helper;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +12,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import com.adt.database.ADTDBHelper;
+import com.adt.model.Job;
+import com.adt.utils.Helper;
+import com.adt.utils.Utils;
 
 public class JobActivity extends Activity implements OnClickListener
 {
@@ -27,7 +28,11 @@ public class JobActivity extends Activity implements OnClickListener
 
 	private EditText wages = null;
 
-	private EditText date = null;
+	private EditText date = null; // TODO implement a solution for editing date
+
+	private EditText description = null;
+
+	private EditText address = null;
 
 	private Button edit = null;
 
@@ -42,8 +47,8 @@ public class JobActivity extends Activity implements OnClickListener
 		if (job != null)
 		{
 			initTextFields();
-			displayValues(job);
-			disableTextfileds();
+			populateTextFields(job);
+			enableTextfileds(false);
 			addListenersToButtons();
 		}
 	}
@@ -54,38 +59,31 @@ public class JobActivity extends Activity implements OnClickListener
 		title = (EditText) findViewById(R.id.task_title_txt);
 		wages = (EditText) findViewById(R.id.task_hourly_wage_txt);
 		date = (EditText) findViewById(R.id.task_created_on_txt);
+		description = (EditText) findViewById(R.id.task_desc_txt);
+		address = (EditText) findViewById(R.id.task_address_txt);
 	}
 
 	/**
-	 * The textfields will be disabled and will be showing the fields. The
-	 * fields should be enabled on edit button pressed
+	 * Enable / Disable text fields
 	 */
-	private void disableTextfileds()
+	private void enableTextfileds(boolean enable)
 	{
-		orgName.setEnabled(false);
-		title.setEnabled(false);
-		wages.setEnabled(false);
+		orgName.setEnabled(enable);
+		title.setEnabled(enable);
+		wages.setEnabled(enable);
+		description.setEnabled(enable);
+		address.setEnabled(enable);
 		date.setEnabled(false);
 	}
 
-	/**
-	 * Enable textfields on the edit button click event
-	 */
-	private void enableTextfileds()
+	private void populateTextFields(Job task)
 	{
-		orgName.setEnabled(true);
-		title.setEnabled(true);
-		wages.setEnabled(true);
-		// date.setEnabled(true); // TODO implement a solution for editing date
-		// as well
-	}
-
-	private void displayValues(Job task)
-	{
-		orgName.setText(task.getOrganizationName());
+		orgName.setText(task.getCompanyName());
 		title.setText(task.getTitle());
 		wages.setText(String.valueOf(task.getHourlyWages()));
 		date.setText((new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(task.getCreationDate())));
+		description.setText(String.valueOf(task.getDescription()));
+		address.setText(String.valueOf(task.getAddress()));
 	}
 
 	private void addListenersToButtons()
@@ -103,50 +101,88 @@ public class JobActivity extends Activity implements OnClickListener
 	@Override
 	public void onClick(View v)
 	{
-		// TODO Check if this if-else approach is good or not?
-		if (v.getId() == R.id.header_home)
+		switch (v.getId())
+		{
+		case R.id.header_home:
 		{
 			Intent i = new Intent(this, ADT.class);
 			startActivity(i);
+			break;
 		}
-		else if (v.getId() == R.id.task_delete_btn)
+		case R.id.task_delete_btn:
 		{
-			ADTDBHelper db = new ADTDBHelper(JobActivity.this);
-			if (db.removeJob(job.getTitle())) finish();//FIXME check if the job is active. if not then delete
+			deleteTask();
+			break;
 		}
-		else if (v.getId() == R.id.task_edit_btn)
+		case R.id.task_edit_btn:
 		{
-			if (edit.getText().equals("Edit"))
+			editTask();
+			break;
+		}
+
+		}
+	}
+
+	private void editTask()
+	{
+		if (edit.getText().equals("Edit"))
+		{
+			enableTextfileds(true);
+			edit.setText("Update");
+		}
+		else
+		{
+			String t = String.valueOf(title.getText()).trim();
+			if (t.equals(""))
 			{
-				enableTextfileds();
-				edit.setText("Update");
+				Utils u = new Utils();
+				u.showMessage("Error", "Sorry  title cannot be empty", this).run();
 			}
 			else
 			{
-				String t = String.valueOf(title.getText()).trim();
-				if (t.equals(""))
+				Job j = new Job();
+				j.setTitle(t);
+				j.setOrganizationName(String.valueOf(orgName.getText()));
+				j.setAddress(String.valueOf(address.getText()));
+				j.setHourlyWages(Helper.getFloatFromEditable(wages.getText()));
+				j.setDescription(String.valueOf(description.getText()));
+				j.setCreationDate(job.getCreationDate());
+				ADTDBHelper db = new ADTDBHelper(JobActivity.this);
+				if (db.updateJob(job.getTitle(), j))
 				{
-					CharSequence msg = "Sorry  title cannot be null";
+					CharSequence msg = "Job - Task updated";
 					Toast.makeText(JobActivity.this, msg, Toast.LENGTH_SHORT).show();
+					edit.setText("Edit");
+					enableTextfileds(false);
+					Intent i = new Intent(this, JobListActivity.class);
+					startActivity(i);
 				}
 				else
 				{
-					// TODO update creation date separately
-					Job j = new Job();
-					j.setTitle(t);
-					j.setOrganizationName(String.valueOf(orgName.getText()));
-					// TODO null will cause exception in the wages field
-					j.setHourlyWages(Helper.getFloatFromEditable(wages.getText()));
-					ADTDBHelper db = new ADTDBHelper(JobActivity.this);
-					if(db.updateJob(job.getTitle(), j))
-					{
-						edit.setText("Edit");
-						CharSequence msg = "Job - Task updated";
-						Toast.makeText(JobActivity.this, msg, Toast.LENGTH_SHORT).show();
-						disableTextfileds(); // TODO new thread
-					}
+					Utils u = new Utils();
+					u.showMessage("Error", "Unable to update the job. Make sure you have not checked-in for this task", this).run();
+					edit.setText("Edit");
+					populateTextFields(job);
+					enableTextfileds(false);
 				}
 			}
+		}
+	}
+
+	private void deleteTask()
+	{
+		ADTDBHelper db = new ADTDBHelper(JobActivity.this);
+		if (db.deleteJob(job.getTitle()))
+		{
+			CharSequence msg = "Job - Task deleted";
+			Toast.makeText(JobActivity.this, msg, Toast.LENGTH_SHORT).show();
+			Intent i = new Intent(this, JobListActivity.class);
+			startActivity(i);
+		}
+		else
+		{
+			Utils u = new Utils();
+			u.showMessage("Sorry Deletion Unsuccessfull", "Make sure you have not checked-in for this job", this).run();
 		}
 	}
 }

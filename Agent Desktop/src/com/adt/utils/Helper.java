@@ -1,5 +1,7 @@
 package com.adt.utils;
 
+import java.util.TimeZone;
+
 import android.text.Editable;
 
 public class Helper
@@ -38,6 +40,12 @@ public class Helper
 		return h + ":" + min + ":" + sec;
 		// return ((((ms / 1000) / 60) / 60) % 24) + ":" + (((ms / 1000) / 60) %
 		// 60) + ":" + ((ms / 1000) % 60) + " hh:mm:ss";
+	}
+
+	public static int getTimeOffset(long time)
+	{
+		TimeZone tz = TimeZone.getDefault();
+		return tz.getOffset(time);
 	}
 
 	public static float getFloatFromEditable(Editable editable)

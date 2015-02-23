@@ -1,6 +1,7 @@
 package com.adt.app;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -16,12 +17,15 @@ import android.widget.Toast;
 import com.adt.adapters.HoursDetailAdapter;
 import com.adt.database.ADTDBHelper;
 import com.adt.model.WorkHours;
+import com.adt.utils.DeleteBtnVisibilityListener;
 import com.adt.utils.Notifier;
 import com.adt.utils.Utils;
 
-public class HoursDetailActivity extends Activity implements OnClickListener, Notifier
+public class HoursDetailActivity extends Activity implements OnClickListener, Notifier, DeleteBtnVisibilityListener
 {
 	private HoursDetailAdapter adapter;
+
+	private View visibileDelBtnRow = null;
 
 	private ArrayList<WorkHours> hoursList;
 
@@ -39,6 +43,7 @@ public class HoursDetailActivity extends Activity implements OnClickListener, No
 		Intent i = getIntent();
 		String callerActivity = i.getStringExtra("activity");
 		// if ("DisplayHoursActivity".equals(caller.getClassName()))
+		db = new ADTDBHelper(this);
 		if ("DisplayHoursActivity".equals(callerActivity))
 		{
 			hoursList = (ArrayList<WorkHours>) i.getSerializableExtra("hours");
@@ -46,12 +51,11 @@ public class HoursDetailActivity extends Activity implements OnClickListener, No
 		else
 		{
 			String jobTitle = (String) i.getStringExtra("job-title");
-
-			db = new ADTDBHelper(this);
 			hoursList = db.getHoursDescription(jobTitle);
 		}
 		adapter = new HoursDetailAdapter(this, hoursList);
 		adapter.setNotifier(this);
+		adapter.setDeleteBtnVisibilityListener(this);
 
 		ListView list = (ListView) findViewById(R.id.hours_detail_lv);
 		// ListView list = (ListView) findViewById(R.id.hours_lv);
@@ -126,7 +130,7 @@ public class HoursDetailActivity extends Activity implements OnClickListener, No
 		{
 			CharSequence msg = "Selection deleted";
 			Toast.makeText(HoursDetailActivity.this, msg, Toast.LENGTH_SHORT).show();
-			refreshData();
+			refreshData(hour);
 		}
 		else
 		{
@@ -135,14 +139,39 @@ public class HoursDetailActivity extends Activity implements OnClickListener, No
 		}
 	}
 
-	private void refreshData()
+	private void refreshData(WorkHours hour)
 	{
 		Intent i = getIntent();
-		WorkHours hours = (WorkHours) i.getSerializableExtra("hours");
-		// TODO get the job title
-
-		String title = hours.getJobTitle();
-		hoursList = db.getHoursDescription(title);
+		String title = (String) i.getSerializableExtra("job-title");
+		if ("ALL".equals(title))
+		{
+			Date fromDate = (Date) i.getSerializableExtra("fromDate");
+			Date toDate = (Date) i.getSerializableExtra("toDate");
+			hoursList = db.getHours(fromDate, toDate);
+		}
+		else
+		{
+			hoursList = db.getHoursDescription(title);
+		}
 		runOnUiThread(populate);
 	}
+
+	@Override
+	public void setDelBtnVisible(boolean visible)
+	{
+		if (!visible && visibileDelBtnRow != null)
+		{
+			ImageButton deleteBtn = (ImageButton) visibileDelBtnRow.findViewById(R.id.hours_detail_item_delete_button);
+			deleteBtn.setVisibility(View.GONE);
+			// adapter.notifyDataSetChanged();
+			visibileDelBtnRow = null;
+		}
+	}
+
+	@Override
+	public void setVisibleBtnRow(View row)
+	{
+		visibileDelBtnRow = row;
+	}
+
 }
