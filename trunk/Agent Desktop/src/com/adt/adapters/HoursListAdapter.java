@@ -4,10 +4,12 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.adt.app.R;
@@ -49,11 +51,14 @@ public class HoursListAdapter extends ArrayAdapter<WorkHours>
 		if (hoursList != null && hoursList.size() > position)
 		{
 			WorkHours hour = hoursList.get(position);
+			LinearLayout layout = (LinearLayout) rowView.findViewById(R.id.hi_linear_layout);
+			if ((hoursList.indexOf(hour) % 2) == 0)
+			{
+				layout.setBackgroundColor(Color.parseColor("#006600"));
+			}
 			ViewHolder holder = (ViewHolder) rowView.getTag();
 			holder.title.setText(hour.getJobTitle());
 			long totalHours = hour.getTotalHours();
-			// if (totalHours == 0) totalHours = (new Date()).getTime() -
-			// hour.getCheckInTime(); // FIXME
 			Helper helper = new Helper();
 			holder.totalHours.setText(helper.convertMSFormated(totalHours));
 		}

@@ -183,6 +183,7 @@ public class DisplayHoursActivity extends Activity implements OnClickListener
 				Intent intent = new Intent(DisplayHoursActivity.this, HoursDetailActivity.class);
 				intent.putExtra("hours", hours);
 				intent.putExtra("activity", "DisplayHoursActivity");
+				intent.putExtra("job-title", taskName);
 				startActivity(intent);
 			}
 		}
@@ -200,6 +201,12 @@ public class DisplayHoursActivity extends Activity implements OnClickListener
 				Intent intent = new Intent(DisplayHoursActivity.this, HoursDetailActivity.class);
 				intent.putExtra("hours", hours);
 				intent.putExtra("activity", "DisplayHoursActivity");
+				intent.putExtra("job-title", "ALL");
+				intent.putExtra("fromDate", fromDate);
+				intent.putExtra("toDate", toDate);
+				// Sending 'ALL' as task name means that hours for
+				// all tasks are retrieved. Not just for one task. And we have
+				// to provide the from and to date as well.
 				startActivity(intent);
 			}
 		}
@@ -212,6 +219,7 @@ public class DisplayHoursActivity extends Activity implements OnClickListener
 			Intent intent = new Intent(DisplayHoursActivity.this, HoursDetailActivity.class);
 			intent.putExtra("hours", hours);
 			intent.putExtra("activity", "DisplayHoursActivity");
+			intent.putExtra("job-title", taskName);
 			startActivity(intent);
 		}
 	}

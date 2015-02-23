@@ -25,7 +25,7 @@ public class JobListAdapter extends ArrayAdapter<Job>
 
 		public TextView companyName;
 
-		public TextView duties;
+		public TextView description;
 	}
 
 	public JobListAdapter(Context context, ArrayList<Job> list)
@@ -43,9 +43,9 @@ public class JobListAdapter extends ArrayAdapter<Job>
 			LayoutInflater inflater = ((Activity) context).getLayoutInflater();
 			rowView = inflater.inflate(R.layout.task_item, parent, false);
 			ViewHolder viewHolder = new ViewHolder();
-			viewHolder.title = (TextView) rowView.findViewById(R.id.task_item_task_title_txtview);
-			viewHolder.companyName = (TextView) rowView.findViewById(R.id.task_item_company_txtview);
-			viewHolder.duties = (TextView) rowView.findViewById(R.id.task_item_duties_txtview);
+			viewHolder.title = (TextView) rowView.findViewById(R.id.ti_task_title_tv);
+			viewHolder.companyName = (TextView) rowView.findViewById(R.id.ti_company_tv);
+			viewHolder.description = (TextView) rowView.findViewById(R.id.ti_description_tv);
 			rowView.setTag(viewHolder);
 		}
 		if (taskList != null && taskList.size() > position)
@@ -53,8 +53,8 @@ public class JobListAdapter extends ArrayAdapter<Job>
 			Job task = taskList.get(position);
 			ViewHolder holder = (ViewHolder) rowView.getTag();
 			holder.title.setText(task.getTitle());
-			holder.companyName.setText(task.getOrganizationName());
-			holder.duties.setText(task.getDuties());
+			holder.companyName.setText(task.getCompanyName());
+			holder.description.setText(task.getDescription());
 		}
 		return rowView;
 	}
