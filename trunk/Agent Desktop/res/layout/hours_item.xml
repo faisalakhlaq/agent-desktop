@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- android:background="#DFE1E7" -->
+<!-- android:background="@drawable/cell_bg" -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/hi_linear_layout"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:background="@drawable/cell_bg"
+    android:background="#009900"
     android:orientation="horizontal"
     android:weightSum="1" >
 
@@ -13,18 +15,18 @@
         android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_marginLeft="10dp"
-        android:gravity="center_vertical"
         android:layout_weight=".5"
-         />
+        android:gravity="center_vertical"
+        android:textColor="#FFFFFF" />
 
     <TextView
         android:id="@+id/total_hours_tv"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
-        android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
-        android:gravity="center_vertical"
+        android:layout_marginRight="10dp"
         android:layout_weight=".5"
-        />
+        android:gravity="center_vertical"
+        android:textColor="#FFFFFF" />
 
 </LinearLayout>

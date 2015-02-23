@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Auther: Faisal Akhlaq -->
 
+
+<!-- android:background="#DFE1E7" -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#DFE1E7"
+    android:background="#CC0066"
     android:orientation="vertical" >
 
     <include layout="@layout/header" />
@@ -15,141 +17,140 @@
         android:layout_height="wrap_content" >
 
         <TableLayout
-                android:layout_width="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="30dp" >
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/task_org_name_lbl"
+                    style="@style/TaskTextView"
+                    android:hint="@string/task_org_name_lbl_hint"
+                    android:text="@string/task_org_name_lbl" />
+
+                <EditText
+                    android:id="@+id/task_org_name_txt"
+                    style="@style/TaskEditView"
+                    android:inputType="text"
+                    android:scrollHorizontally="true" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/task_title_lbl"
+                    style="@style/TaskTextView"
+                    android:hint="@string/task_title_lbl_hint"
+                    android:text="@string/task_title_lbl" />
+
+                <EditText
+                    android:id="@+id/task_title_txt"
+                    style="@style/TaskEditView"
+                    android:inputType="text"
+                    android:scrollHorizontally="true" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/task_address_lbl"
+                    style="@style/TaskTextView"
+                    android:hint="@string/task_address_lbl_hint"
+                    android:text="@string/task_address_lbl" />
+
+                <EditText
+                    android:id="@+id/task_address_txt"
+                    style="@style/TaskEditView"
+                    android:inputType="textEmailAddress"
+                    android:scrollHorizontally="true" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/task_hourly_wage_lbl"
+                    style="@style/TaskTextView"
+                    android:hint="@string/task_hourly_wage_lbl_hint"
+                    android:text="@string/task_hourly_wage_lbl" />
+
+                <EditText
+                    android:id="@+id/task_hourly_wage_txt"
+                    style="@style/TaskEditView"
+                    android:inputType="number"
+                    android:scrollHorizontally="true" >
+                </EditText>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/task_desc_lbl"
+                    style="@style/TaskTextView"
+                    android:text="@string/task_desc_lbl" />
+
+                <EditText
+                    android:id="@+id/task_desc_txt"
+                    style="@style/TaskEditView"
+                    android:gravity="top"
+                    android:inputType="text"
+                    android:lines="3"
+                    android:scrollbars="vertical" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/task_created_on_lbl"
+                    style="@style/TaskTextView"
+                    android:text="@string/task_created_on_lbl" />
+
+                <EditText
+                    android:id="@+id/task_created_on_txt"
+                    style="@style/TaskEditView"
+                    android:inputType="date"
+                    android:scrollHorizontally="true" />
+            </TableRow>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="30dp" >
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="1" >
 
-                <TableRow
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" >
-
-                    <TextView
-                        android:id="@+id/task_org_name_lbl"
-                        style="@style/TaskTextView"
-                        android:hint="@string/task_org_name_lbl_hint"
-                        android:text="@string/task_org_name_lbl" />
-
-                    <EditText
-                        android:id="@+id/task_org_name_txt"
-                        style="@style/TaskEditView"
-                        android:inputType="text"
-                        android:scrollHorizontally="true" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" >
-
-                    <TextView
-                        android:id="@+id/task_title_lbl"
-                        style="@style/TaskTextView"
-                        android:hint="@string/task_title_lbl_hint"
-                        android:text="@string/task_title_lbl" />
-
-                    <EditText
-                        android:id="@+id/task_title_txt"
-                        style="@style/TaskEditView"
-                        android:inputType="text"
-                        android:scrollHorizontally="true" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" >
-
-                    <TextView
-                        android:id="@+id/task_address_lbl"
-                        style="@style/TaskTextView"
-                        android:hint="@string/task_address_lbl_hint"
-                        android:text="@string/task_address_lbl" />
-
-                    <EditText
-                        android:id="@+id/task_address_txt"
-                        style="@style/TaskEditView"
-                        android:inputType="textEmailAddress"
-                        android:scrollHorizontally="true" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" >
-
-                    <TextView
-                        android:id="@+id/task_hourly_wage_lbl"
-                        style="@style/TaskTextView"
-                        android:hint="@string/task_hourly_wage_lbl_hint"
-                        android:text="@string/task_hourly_wage_lbl" />
-
-                    <EditText
-                        android:id="@+id/task_hourly_wage_txt"
-                        style="@style/TaskEditView"
-                        android:inputType="number"
-                        android:scrollHorizontally="true" >
-                    </EditText>
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" >
-
-                    <TextView
-                        android:id="@+id/task_desc_lbl"
-                        style="@style/TaskTextView"
-                        android:text="@string/task_desc_lbl" />
-
-                    <EditText
-                        android:id="@+id/task_desc_txt1"
-                        android:inputType="text"
-                        android:scrollbars="vertical"
-                        style="@style/TaskEditView"
-                        android:lines="3"
-                        android:gravity="top" />
-                </TableRow>
-                
-                <TableRow
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" >
-
-                    <TextView
-                        android:id="@+id/task_created_on_lbl"
-                        style="@style/TaskTextView"
-                        android:text="@string/task_created_on_lbl" />
-
-                    <EditText
-                        android:id="@+id/task_created_on_txt"
-                        style="@style/TaskEditView"
-                        android:inputType="date"
-                        android:scrollHorizontally="true" />
-                </TableRow>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
+                <Button
+                    android:id="@+id/task_edit_btn"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal" 
-                    android:weightSum="1">
+                    android:layout_weight=".3"
+                    android:hint="@string/task_edit_btn_hint"
+                    android:text="@string/task_edit_btn" >
+                </Button>
 
-
-                    <Button
-                        android:id="@+id/task_edit_btn"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".3"
-                        android:hint="@string/task_edit_btn_hint"
-                        android:text="@string/task_edit_btn" >
-                    </Button>
-
-                    <Button
-                        android:id="@+id/task_delete_btn"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".3"
-                        android:hint="@string/task_delete_btn_hint"
-                        android:text="@string/task_delete_btn" >
-                    </Button>
-                </LinearLayout>
-            </TableLayout>
+                <Button
+                    android:id="@+id/task_delete_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".3"
+                    android:hint="@string/task_delete_btn_hint"
+                    android:text="@string/task_delete_btn" >
+                </Button>
+            </LinearLayout>
+        </TableLayout>
     </ScrollView>
 
 </LinearLayout>

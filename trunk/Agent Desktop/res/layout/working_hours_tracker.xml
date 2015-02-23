@@ -50,9 +50,9 @@
                     android:text="@string/working_hours_create_task_btn_lbl" />
 
                 <Button
-                    android:id="@+id/working_hours_edit_task_btn"
+                    android:id="@+id/wht_edit_task_btn"
                     style="@style/MainActivityButton"
-                    android:text="@string/working_hours_edit_task_btn_lbl" />
+                    android:text="@string/adt_edit_task_lbl" />
             </TableRow>
 
             <TableRow
@@ -79,9 +79,9 @@
                 android:gravity="center" >
 
                 <Button
-                    android:id="@+id/working_hours_view_calendar_btn"
+                    android:id="@+id/wht_addhour_btn"
                     style="@style/MainActivityButton"
-                    android:text="@string/working_hours_view_calendar_btn_lbl" />
+                    android:text="@string/wht_addhour_btn_lbl" />
 
                 <Button
                     android:id="@+id/working_hours_calc_income_btn"

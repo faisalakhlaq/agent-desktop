@@ -103,7 +103,7 @@
                     android:text="@string/create_task_desc_lbl" />
 
                 <EditText
-                    android:id="@+id/create_task_desc_txt1"
+                    android:id="@+id/create_task_desc_txt"
                     android:lines="3"
                     style="@style/TaskEditView"
                     android:inputType="text"

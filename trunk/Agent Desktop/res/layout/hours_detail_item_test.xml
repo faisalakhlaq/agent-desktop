@@ -2,15 +2,16 @@
 <!-- Auther: Faisal Akhlaq -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/hdi_linear_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="50dp"
+    android:background="#009900"
     android:orientation="vertical" >
 
     <TableRow
         android:id="@+id/hoursDetailItemtableRow"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/cell"
+        android:layout_height="fill_parent"
         android:gravity="center_vertical"
         android:paddingLeft="10dp" >
 
@@ -27,6 +28,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".20"
+            android:textColor="#FFFFFF"
             android:textIsSelectable="true" />
 
         <TextView
@@ -34,6 +36,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".20"
+            android:textColor="#FFFFFF"
             android:textIsSelectable="true" />
 
         <TextView
@@ -41,6 +44,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".20"
+            android:textColor="#FFFFFF"
             android:textIsSelectable="true" />
 
         <TextView
@@ -48,6 +52,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".20"
+            android:textColor="#FFFFFF"
             android:textIsSelectable="true" />
 
         <ImageButton
