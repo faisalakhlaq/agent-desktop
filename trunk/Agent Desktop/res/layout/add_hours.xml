@@ -1,0 +1,97 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DFE1E7"
+    android:orientation="vertical"
+    tools:context="com.adt.app.AddHours" >
+
+    <include layout="@layout/header" />
+
+    <TextView
+        android:id="@+id/ah_header_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="@string/ah_header_tv" />
+
+    <Spinner
+        android:id="@+id/ah_tasks_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:prompt="@string/ah_jobspinner_prompt" />
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:weightSum="1" >
+
+        <TextView
+            android:id="@+id/ah_fromdate_lbl"
+            style="@style/AddHourTextView"
+            android:text="@string/ah_fromdate_lbl" />
+
+        <Button
+            android:id="@+id/ah_fromdate_btn"
+            style="@style/AddHourButton"
+            android:text="@string/ah_fromdate_btn_lbl" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1" >
+
+        <TextView
+            android:id="@+id/ah_fromtime_lbl"
+            style="@style/AddHourTextView"
+            android:text="@string/ah_fromtime_lbl" />
+
+        <Button
+            android:id="@+id/ah_fromtime_btn"
+            style="@style/AddHourButton"
+            android:text="@string/ah_fromtime_btn_lbl" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1" >
+
+        <TextView
+            android:id="@+id/ah_todate_lbl"
+            style="@style/AddHourTextView"
+            android:text="@string/ah_todate_lbl" />
+
+        <Button
+            android:id="@+id/ah_todate_btn"
+            style="@style/AddHourButton"
+            android:text="@string/ah_todate_btn_lbl" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1" >
+
+        <TextView
+            android:id="@+id/ah_totime_lbl"
+            style="@style/AddHourTextView"
+            android:text="@string/ah_totime_lbl" />
+
+        <Button
+            android:id="@+id/ah_totime_btn"
+            style="@style/AddHourButton"
+            android:text="@string/ah_totime_btn_lbl" />
+    </TableRow>
+
+    <Button
+            android:id="@+id/ah_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/ah_btn_lbl" />
+</LinearLayout>
