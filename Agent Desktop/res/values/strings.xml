@@ -114,4 +114,18 @@
     <string name="title_activity_add_hours">Add Hours</string>
     <string name="action_settings">Settings</string>
 
+    <!-- ADD HOURS -->
+    <string name="ah_header_tv">Add Hours</string>
+    <string name="ah_fromdate_lbl">From Date</string>
+    <string name="ah_fromtime_lbl">From Time</string>
+    <string name="ah_fromdate_btn_lbl">From Date</string>
+    <string name="ah_fromtime_btn_lbl">From Time</string>
+    
+    <string name="ah_todate_lbl">To Date</string>
+    <string name="ah_totime_lbl">To Time</string>
+    <string name="ah_todate_btn_lbl">To Date</string>
+    <string name="ah_totime_btn_lbl">To Time</string>
+    <string name="ah_btn_lbl">Add Hours</string>
+    
+    <string name="ah_jobspinner_prompt">Select Job</string>
 </resources>

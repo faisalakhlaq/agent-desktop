@@ -74,8 +74,10 @@ public class ADT extends Activity implements OnClickListener
 		}
 		case R.id.wht_addhour_btn:
 		{
-			Utils u = new Utils();
-			u.showMessage("Sorry", "Feature not available", this).run();
+			Intent intent = new Intent(ADT.this, AddHours.class);
+			startActivity(intent);
+			// Utils u = new Utils();
+			// u.showMessage("Sorry", "Feature not available", this).run();
 			break;
 		}
 		default:

@@ -71,7 +71,7 @@
                 <EditText
                     android:id="@+id/profile_email_txt"
                     style="@style/ProfileEditView"
-                    android:inputType="text" />
+                    android:inputType="textEmailAddress" />
             </LinearLayout>
 
             <LinearLayout
