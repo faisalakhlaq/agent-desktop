@@ -68,7 +68,7 @@ public class ADT extends Activity implements OnClickListener
 		// }
 		case R.id.working_hours_my_hours:
 		{
-			Intent i = new Intent(ADT.this, DisplayHoursActivity.class);
+			Intent i = new Intent(ADT.this, DisplayHoursOptions.class);
 			startActivity(i);
 			break;
 		}

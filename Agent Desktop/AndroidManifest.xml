@@ -62,7 +62,7 @@
                 android:value="com.adt.app.ADT" />
         </activity>
         <activity
-            android:name=".DisplayHoursActivity"
+            android:name=".DisplayHoursOptions"
             android:label="@string/title_activity_hours" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
