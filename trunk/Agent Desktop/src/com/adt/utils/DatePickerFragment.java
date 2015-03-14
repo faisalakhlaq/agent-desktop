@@ -1,6 +1,9 @@
 package com.adt.utils;
 
 import java.util.Calendar;
+import java.util.Date;
+
+import com.adt.app.R;
 
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
@@ -12,11 +15,14 @@ import android.widget.DatePicker;
 
 public class DatePickerFragment extends DialogFragment implements OnDateSetListener
 {
+	private Notifier notifier = null;
+
 	private Button dateBtn;
 
-	public DatePickerFragment(Button timeBtn)
+	public DatePickerFragment(Button dateBtn, Notifier notifier)
 	{
-		this.dateBtn = timeBtn;
+		this.dateBtn = dateBtn;
+		this.notifier = notifier;
 	}
 
 	@Override
@@ -35,7 +41,26 @@ public class DatePickerFragment extends DialogFragment implements OnDateSetListe
 	@Override
 	public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
 	{
-		dateBtn.setText(year + ":" + monthOfYear + ":" + dayOfMonth);
+		dateBtn.setText(year + ":" + (monthOfYear + 1) + ":" + dayOfMonth);
+		Calendar c = Calendar.getInstance();
+		c.set(year, monthOfYear, dayOfMonth, 0, 0, 0);
+		Date date = c.getTime();
+
+		int btnId = dateBtn.getId();
+
+		switch (btnId)
+		{
+		case R.id.ah_fromdate_btn:
+		{
+			notifier.notify(date, "FROMDATE");
+			break;
+		}
+		case R.id.ah_todate_btn:
+		{
+			notifier.notify(date, "TODATE");
+			break;
+		}
+		}
 	}
 
 }

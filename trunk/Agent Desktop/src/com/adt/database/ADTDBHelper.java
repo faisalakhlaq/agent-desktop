@@ -510,7 +510,7 @@ public class ADTDBHelper extends SQLiteOpenHelper
 				{
 					long time = Calendar.getInstance().getTimeInMillis();
 					time += Helper.getTimeOffset(time);
-					totalHours = (new Date(time)).getTime() - (new Date(checkInTime)).getTime(); 
+					totalHours = (new Date(time)).getTime() - (new Date(checkInTime)).getTime();
 				}
 				hours.setTotalHours(hours.getTotalHours() + totalHours);
 			}
@@ -732,5 +732,35 @@ public class ADTDBHelper extends SQLiteOpenHelper
 			close();
 		}
 		return list;
+	}
+
+	public boolean addHours(Date from, Date to, String jobTitle)
+	{
+		boolean added = true;
+		/*
+		 * "CREATE TABLE IF NOT EXISTS " + HOURS_TABLE_NAME +
+		 * " (job_title TEXT, check_in_time LONG, check_out_time LONG, " +
+		 * "total_hours LONG, active BOOLEAN DEFAULT 'FALSE');";
+		 */
+		try
+		{
+			openDataBase();
+			long checkInTime = from.getTime();
+
+			long checkOutTime = to.getTime();
+			String query = "INSERT INTO hours(job_title, check_in_time, check_out_time, total_hours, active) VALUES " + "('" + jobTitle + "', " + checkInTime + ", " + checkOutTime
+					+ ", " + (checkOutTime - checkInTime) + ", 'FALSE');";
+			adtDB.execSQL(query);
+		}
+		catch (Exception e)
+		{
+			Utils.println(e.getMessage());
+			added = false;
+		}
+		finally
+		{
+			adtDB.close();
+		}
+		return added;
 	}
 }
