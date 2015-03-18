@@ -47,7 +47,7 @@ public class HoursDetailAdapter extends ArrayAdapter<WorkHours>
 
 	public HoursDetailAdapter(Context context, ArrayList<WorkHours> list)
 	{
-		super(context, R.layout.hours_detail_item_test, list);
+		super(context, R.layout.hours_detail_item, list);
 		this.context = context;
 		if (list != null && list.size() > 0) hoursList = list;
 	}
@@ -59,7 +59,7 @@ public class HoursDetailAdapter extends ArrayAdapter<WorkHours>
 		final View row = rowView;
 		if (rowView == null)
 		{
-			rowView = inflater.inflate(R.layout.hours_detail_item_test, parent, false);
+			rowView = inflater.inflate(R.layout.hours_detail_item, parent, false);
 			ViewHolder viewHolder = new ViewHolder();
 			viewHolder.checkIn = (TextView) rowView.findViewById(R.id.hours_detail_item_checkin_lbl);
 			viewHolder.checkOut = (TextView) rowView.findViewById(R.id.hours_detail_item_checkout_lbl);
@@ -82,7 +82,7 @@ public class HoursDetailAdapter extends ArrayAdapter<WorkHours>
 			// holder.date.setText((new
 			// Date(hour.getCheckInTime())).toString());
 			holder.date.setText((new SimpleDateFormat("dd-MM-yy", Locale.getDefault()).format(hour.getCheckInTime())));
-			holder.duration.setText(helper.convertMSFormated(hour.getTotalHours()));
+			holder.duration.setText(helper.msToHMS(hour.getTotalHours()));
 			if (hour.getCheckOutTime() == 0)
 			{
 				// if check out time == 0 then the total working hours = 0.
@@ -94,7 +94,7 @@ public class HoursDetailAdapter extends ArrayAdapter<WorkHours>
 
 				Date in = new Date(hour.getCheckInTime());
 				Date out = new Date(time);
-				holder.duration.setText(helper.convertMSFormated(out.getTime() - in.getTime()));
+				holder.duration.setText(helper.msToHMS(out.getTime() - in.getTime()));
 
 				// indicate that the user is still checked in by writing checked
 				// in under the checkout time

@@ -2,17 +2,19 @@
 <!-- Auther: Faisal Akhlaq -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/hdi_linear_layout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="50dp"
     android:background="#009900"
+    android:descendantFocusability="blocksDescendants"
     android:orientation="vertical" >
 
     <TableRow
         android:id="@+id/hoursDetailItemtableRow"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:gravity="center_vertical"
-        android:paddingLeft="10dp" >
+        android:paddingLeft="5dp" >
 
         <ImageButton
             android:id="@+id/hours_detail_item_delete_icon"
@@ -26,29 +28,43 @@
             android:id="@+id/hours_detail_item_checkin_lbl"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight=".20"
-            android:textIsSelectable="true" />
+            android:layout_weight=".20" />
 
         <TextView
             android:id="@+id/hours_detail_item_checkout_lbl"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight=".20"
-            android:textIsSelectable="true" />
+            android:layout_weight=".20" />
 
         <TextView
             android:id="@+id/hours_detail_item_date_lbl"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight=".20"
-            android:textIsSelectable="true" />
+            android:layout_weight=".20" />
 
         <TextView
             android:id="@+id/hours_detail_item_duration_lbl"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight=".20"
-            android:textIsSelectable="true" />
+            android:layout_weight=".20" />
+
+        <ImageButton
+            android:id="@+id/hdi_detail_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center"
+            android:layout_marginRight="5dp"
+            android:layout_weight=".04"
+            android:background="@drawable/detail_arrow"
+            android:contentDescription="@drawable/detail_arrow" />
+
+        <ImageButton
+            android:id="@+id/hours_detail_item_delete_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/del_button"
+            android:contentDescription="@drawable/del_button"
+            android:visibility="gone" />
     </TableRow>
 
     <View

@@ -9,18 +9,18 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import com.adt.model.Job;
-import com.adt.model.User;
-import com.adt.model.WorkHours;
-import com.adt.utils.Helper;
-import com.adt.utils.Utils;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.adt.model.Job;
+import com.adt.model.User;
+import com.adt.model.WorkHours;
+import com.adt.utils.Helper;
+import com.adt.utils.Utils;
 
 public class ADTDBHelper extends SQLiteOpenHelper
 {
@@ -734,7 +734,8 @@ public class ADTDBHelper extends SQLiteOpenHelper
 		return list;
 	}
 
-	public boolean addHours(Date from, Date to, String jobTitle)
+	// public boolean addHours(Date from, Date to, String jobTitle)
+	public boolean addHours(WorkHours wh)
 	{
 		boolean added = true;
 		/*
@@ -745,11 +746,18 @@ public class ADTDBHelper extends SQLiteOpenHelper
 		try
 		{
 			openDataBase();
-			long checkInTime = from.getTime();
+			long checkInTime = wh.getCheckInTime();
+			long checkOutTime = wh.getCheckOutTime();
 
-			long checkOutTime = to.getTime();
-			String query = "INSERT INTO hours(job_title, check_in_time, check_out_time, total_hours, active) VALUES " + "('" + jobTitle + "', " + checkInTime + ", " + checkOutTime
-					+ ", " + (checkOutTime - checkInTime) + ", 'FALSE');";
+			Date fromDate = new Date(checkInTime);
+			Date toDate = new Date(checkOutTime);
+
+			// String query =
+			// "INSERT INTO hours(job_title, check_in_time, check_out_time, total_hours, active) VALUES "
+			// + "('" + jobTitle + "', " + checkInTime + ", " + checkOutTime
+			// + ", " + (checkOutTime - checkInTime) + ", 'FALSE');";
+			String query = "INSERT INTO hours(job_title, check_in_time, check_out_time, total_hours, active) VALUES " + "('" + wh.getJobTitle() + "', " + checkInTime + ", "
+					+ checkOutTime + ", " + (toDate.getTime() - fromDate.getTime()) + ", 'FALSE');";
 			adtDB.execSQL(query);
 		}
 		catch (Exception e)
@@ -762,5 +770,41 @@ public class ADTDBHelper extends SQLiteOpenHelper
 			adtDB.close();
 		}
 		return added;
+	}
+
+	// public boolean updateWorkHours(WorkHours wh, Date fromDate, Date toDate)
+	public boolean updateWorkHours(WorkHours wh, WorkHours whNew)
+	{
+		boolean updated = true;
+
+		long checkOutTime = whNew.getCheckOutTime();
+		long checkInTime = whNew.getCheckInTime();
+		// Date fromDate = new Date(checkInTime);
+		// Date toDate = new Date(checkOutTime);
+		// toDate.getTime() - fromDate.getTime()
+		String query = "UPDATE hours set check_in_time = " + checkInTime + ", check_out_time = " + checkOutTime + ", total_hours = " + (checkOutTime - checkInTime)
+				+ " WHERE job_title = '" + wh.getJobTitle() + "' and check_in_time = " + wh.getCheckInTime() + " and check_out_time = " + wh.getCheckOutTime() + ";";
+		// String query = "UPDATE hours set check_in_time = " +
+		// fromDate.getTime() + ", check_out_time = " + toDate.getTime() +
+		// ", total_hours = "
+		// + (toDate.getTime() - fromDate.getTime()) + " WHERE job_title = '" +
+		// wh.getJobTitle() + "' and check_in_time = " + wh.getCheckInTime() +
+		// " and check_out_time = "
+		// + wh.getCheckOutTime() + ";";
+		try
+		{
+			openDataBase();
+			adtDB.execSQL(query);
+		}
+		catch (Exception e)
+		{
+			e.getStackTrace();
+			updated = false;
+		}
+		finally
+		{
+			close();
+		}
+		return updated;
 	}
 }

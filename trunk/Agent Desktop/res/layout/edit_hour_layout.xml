@@ -1,0 +1,115 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="30dp" >
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:weightSum="1" >
+
+            <TextView
+                android:id="@+id/eh_title_tv"
+                style="@style/EditHourTextView"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/eh_title_tv" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:weightSum="1" >
+
+            <TextView
+                android:id="@+id/eh_fromdate_lbl"
+                style="@style/EditHourTextView"
+                android:text="@string/eh_fromdate_lbl" />
+
+            <Button
+                android:id="@+id/eh_fromdate_btn"
+                style="@style/EditHourButton"
+                android:text="@string/eh_fromdate_btn_lbl" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1" >
+
+            <TextView
+                android:id="@+id/eh_fromtime_lbl"
+                style="@style/EditHourTextView"
+                android:text="@string/eh_fromtime_lbl" />
+
+            <Button
+                android:id="@+id/eh_fromtime_btn"
+                style="@style/EditHourButton"
+                android:text="@string/eh_fromtime_btn_lbl" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1" >
+
+            <TextView
+                android:id="@+id/eh_todate_lbl"
+                style="@style/EditHourTextView"
+                android:text="@string/eh_todate_lbl" />
+
+            <Button
+                android:id="@+id/eh_todate_btn"
+                style="@style/EditHourButton"
+                android:text="@string/eh_todate_btn_lbl" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1" >
+
+            <TextView
+                android:id="@+id/eh_totime_lbl"
+                style="@style/EditHourTextView"
+                android:text="@string/eh_totime_lbl" />
+
+            <Button
+                android:id="@+id/eh_totime_btn"
+                style="@style/EditHourButton"
+                android:text="@string/eh_totime_btn_lbl" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="1" >
+
+            <TextView
+                android:id="@+id/eh_duration_lbl"
+                style="@style/EditHourTextView"
+                android:text="@string/eh_duration_lbl" />
+
+            <EditText
+                android:id="@+id/eh_duration_et"
+                style="@style/EditHourButton"
+                android:enabled="false"
+                android:focusable="false" />
+        </TableRow>
+
+        <Button
+            android:id="@+id/eh_update_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="@string/eh_update_btn_lbl" />
+    </TableLayout>
+
+</ScrollView>

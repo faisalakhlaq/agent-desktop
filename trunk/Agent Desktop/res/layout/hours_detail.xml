@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#DFE1E7"
+    android:descendantFocusability="blocksDescendants"
     android:orientation="vertical" >
 
     <include layout="@layout/adt_header" />
@@ -50,7 +51,7 @@
         android:background="#000000" />
 
     <ListView
-        android:id="@+id/hours_detail_lv"
+        android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
     </ListView>
