@@ -75,6 +75,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.adt.app.ADT" />
         </activity>
+        <activity
+            android:name=".EditHours"
+            android:label="@string/title_activity_edit_hour"
+            android:parentActivityName=".HoursDetailActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.adt.app.HoursDetailActivity" />
+        </activity>
     </application>
 
 </manifest>

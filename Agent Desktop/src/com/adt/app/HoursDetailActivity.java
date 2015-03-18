@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -21,13 +23,15 @@ import com.adt.utils.DeleteBtnVisibilityListener;
 import com.adt.utils.Notifier;
 import com.adt.utils.Utils;
 
-public class HoursDetailActivity extends Activity implements OnClickListener, Notifier, DeleteBtnVisibilityListener
+public class HoursDetailActivity extends Activity implements OnClickListener, Notifier, DeleteBtnVisibilityListener, OnItemClickListener
 {
 	private HoursDetailAdapter adapter;
 
 	private View visibileDelBtnRow = null;
 
 	private ArrayList<WorkHours> hoursList;
+
+	private ListView listView;
 
 	private ADTDBHelper db;
 
@@ -57,9 +61,11 @@ public class HoursDetailActivity extends Activity implements OnClickListener, No
 		adapter.setNotifier(this);
 		adapter.setDeleteBtnVisibilityListener(this);
 
-		ListView list = (ListView) findViewById(R.id.hours_detail_lv);
-		// ListView list = (ListView) findViewById(R.id.hours_lv);
-		list.setAdapter(adapter);
+		listView = (ListView) findViewById(R.id.list);
+		// listView = getListView();
+		listView.setAdapter(adapter);
+		listView.setOnItemClickListener(this);
+		listView.setDescendantFocusability(ListView.FOCUS_BLOCK_DESCENDANTS);
 
 		ImageButton homeBtn = (ImageButton) findViewById(R.id.adt_header_home);
 		homeBtn.setOnClickListener(this);
@@ -95,7 +101,7 @@ public class HoursDetailActivity extends Activity implements OnClickListener, No
 			Intent i = new Intent(this, ADT.class);
 			startActivity(i);
 		}
-		if (v.getId() == R.id.adt_header_edit_btn)
+		else if (v.getId() == R.id.adt_header_edit_btn)
 		{
 			ImageButton editBtn = (ImageButton) findViewById(R.id.adt_header_edit_btn);
 			editBtn.setVisibility(View.GONE);
@@ -107,8 +113,11 @@ public class HoursDetailActivity extends Activity implements OnClickListener, No
 			}
 			adapter.notifyDataSetChanged();
 		}
-		if (v.getId() == R.id.header_done_btn)
+		else if (v.getId() == R.id.header_done_btn)
 		{
+			// TODO check if the hours are shown for a specific
+			// time and task then retrieve the hours for the time not the entire
+			// hours
 			ImageButton editBtn = (ImageButton) findViewById(R.id.adt_header_edit_btn);
 			editBtn.setVisibility(View.VISIBLE);
 			ImageButton doneBtn = (ImageButton) findViewById(R.id.header_done_btn);
@@ -174,4 +183,19 @@ public class HoursDetailActivity extends Activity implements OnClickListener, No
 		visibileDelBtnRow = row;
 	}
 
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+	{
+		if (listView != null)
+		{
+			HoursDetailAdapter adapter = (HoursDetailAdapter) parent.getAdapter();
+			WorkHours workHours = (WorkHours) adapter.getItem(position);
+			if (!workHours.isEditMode())
+			{
+				Intent i = new Intent(view.getContext(), EditHours.class);
+				i.putExtra("HOURS", workHours);
+				startActivity(i);
+			}
+		}
+	}
 }

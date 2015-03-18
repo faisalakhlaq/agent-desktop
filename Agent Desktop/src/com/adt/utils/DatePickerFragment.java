@@ -41,26 +41,33 @@ public class DatePickerFragment extends DialogFragment implements OnDateSetListe
 	@Override
 	public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
 	{
-		dateBtn.setText(year + ":" + (monthOfYear + 1) + ":" + dayOfMonth);
+		dateBtn.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
 		Calendar c = Calendar.getInstance();
 		c.set(year, monthOfYear, dayOfMonth, 0, 0, 0);
 		Date date = c.getTime();
 
 		int btnId = dateBtn.getId();
 
-		switch (btnId)
-		{
-		case R.id.ah_fromdate_btn:
+		if (btnId == R.id.ah_fromdate_btn || btnId == R.id.eh_fromdate_btn)
 		{
 			notifier.notify(date, "FROMDATE");
-			break;
 		}
-		case R.id.ah_todate_btn:
+		else if (btnId == R.id.ah_todate_btn || btnId == R.id.eh_todate_btn)
 		{
 			notifier.notify(date, "TODATE");
-			break;
 		}
-		}
+		// switch (btnId)
+		// {
+		// case R.id.ah_fromdate_btn:
+		// {
+		// notifier.notify(date, "FROMDATE");
+		// break;
+		// }
+		// case R.id.ah_todate_btn:
+		// {
+		// notifier.notify(date, "TODATE");
+		// break;
+		// }
+		// }
 	}
-
 }

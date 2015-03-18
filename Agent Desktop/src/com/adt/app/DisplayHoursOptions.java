@@ -156,10 +156,11 @@ public class DisplayHoursOptions extends Activity implements OnClickListener
 			Button toDateBtn = (Button) findViewById(R.id.dho_to_date_btn);
 			showDatePickerDialog(toDateBtn);
 		}
-		else if (v.getId() == R.id.dho_date_taskwise_rbtn || v.getId() == R.id.dho_taskwise_rbtn)
-		{
-			onRadioButtonClicked(v);
-		}
+		// else if (v.getId() == R.id.dho_date_taskwise_rbtn || v.getId() ==
+		// R.id.dho_taskwise_rbtn)
+		// {
+		// onRadioButtonClicked(v);
+		// }
 		else if (v.getId() == R.id.dho_show_btn)
 		{
 			getResults();
@@ -170,37 +171,49 @@ public class DisplayHoursOptions extends Activity implements OnClickListener
 	{
 		ADTDBHelper dbHelper = new ADTDBHelper(this);
 		boolean checked = ((RadioButton) findViewById(R.id.dho_date_taskwise_rbtn)).isChecked();
-		if (fromDate == null || toDate == null)
+		if (checked)
 		{
-			Utils u = new Utils();
-			Runnable msg = u.showMessage("Error", "Please provide dates", this);
-			msg.run();
-		}
-		else if (checked)
-		{
-			Spinner taskSpinner = (Spinner) findViewById(R.id.dho_tasks_spinner);
-			String taskName = (String) taskSpinner.getSelectedItem();
+			if (fromDate == null || toDate == null)
+			{
+				Utils u = new Utils();
+				Runnable msg = u.showMessage("Error", "Please provide dates", this);
+				msg.run();
+			}
+			else
+			{
+				Spinner taskSpinner = (Spinner) findViewById(R.id.dho_tasks_spinner);
+				String taskName = (String) taskSpinner.getSelectedItem();
 
-			ArrayList<WorkHours> hours = dbHelper.getHours(fromDate, toDate, taskName);
-			Intent intent = new Intent(DisplayHoursOptions.this, HoursDetailActivity.class);
-			intent.putExtra("hours", hours);
-			intent.putExtra("activity", "DisplayHoursActivity");
-			intent.putExtra("job-title", taskName);
-			startActivity(intent);
+				ArrayList<WorkHours> hours = dbHelper.getHours(fromDate, toDate, taskName);
+				Intent intent = new Intent(DisplayHoursOptions.this, HoursDetailActivity.class);
+				intent.putExtra("hours", hours);
+				intent.putExtra("activity", "DisplayHoursActivity");
+				intent.putExtra("job-title", taskName);
+				startActivity(intent);
+			}
 		}
 		else if (((RadioButton) findViewById(R.id.dho_datewise_rbtn)).isChecked())
 		{
-			ArrayList<WorkHours> hours = dbHelper.getHours(fromDate, toDate);
-			Intent intent = new Intent(DisplayHoursOptions.this, HoursDetailActivity.class);
-			intent.putExtra("hours", hours);
-			intent.putExtra("activity", "DisplayHoursActivity");
-			intent.putExtra("job-title", "ALL");
-			intent.putExtra("fromDate", fromDate);
-			intent.putExtra("toDate", toDate);
-			// Sending 'ALL' as task name means that hours for
-			// all tasks are retrieved. Not just for one task. And we have
-			// to provide the from and to date as well.
-			startActivity(intent);
+			if (fromDate == null || toDate == null)
+			{
+				Utils u = new Utils();
+				Runnable msg = u.showMessage("Error", "Please provide dates", this);
+				msg.run();
+			}
+			else
+			{
+				ArrayList<WorkHours> hours = dbHelper.getHours(fromDate, toDate);
+				Intent intent = new Intent(DisplayHoursOptions.this, HoursDetailActivity.class);
+				intent.putExtra("hours", hours);
+				intent.putExtra("activity", "DisplayHoursActivity");
+				intent.putExtra("job-title", "ALL");
+				intent.putExtra("fromDate", fromDate);
+				intent.putExtra("toDate", toDate);
+				// Sending 'ALL' as task name means that hours for
+				// all tasks are retrieved. Not just for one task. And we have
+				// to provide the from and to date as well.
+				startActivity(intent);
+			}
 		}
 		else if (((RadioButton) findViewById(R.id.dho_taskwise_rbtn)).isChecked())
 		{

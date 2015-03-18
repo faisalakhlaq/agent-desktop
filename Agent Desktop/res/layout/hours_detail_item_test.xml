@@ -28,32 +28,28 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".20"
-            android:textColor="#FFFFFF"
-            android:textIsSelectable="true" />
+            android:textColor="#FFFFFF" />
 
         <TextView
             android:id="@+id/hours_detail_item_checkout_lbl"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".20"
-            android:textColor="#FFFFFF"
-            android:textIsSelectable="true" />
+            android:textColor="#FFFFFF" />
 
         <TextView
             android:id="@+id/hours_detail_item_date_lbl"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".20"
-            android:textColor="#FFFFFF"
-            android:textIsSelectable="true" />
+            android:textColor="#FFFFFF" />
 
         <TextView
             android:id="@+id/hours_detail_item_duration_lbl"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".20"
-            android:textColor="#FFFFFF"
-            android:textIsSelectable="true" />
+            android:textColor="#FFFFFF" />
 
         <ImageButton
             android:id="@+id/hours_detail_item_delete_button"

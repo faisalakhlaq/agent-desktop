@@ -17,7 +17,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.adt.database.ADTDBHelper;
+import com.adt.model.WorkHours;
 import com.adt.utils.DatePickerFragment;
+import com.adt.utils.Helper;
 import com.adt.utils.Notifier;
 import com.adt.utils.TimePickerFragment;
 import com.adt.utils.Utils;
@@ -31,10 +33,7 @@ import com.adt.utils.Utils;
  * */
 public class AddHours extends FragmentActivity implements OnClickListener, Notifier
 {
-
-	private Date fromDate = null;
-
-	private Date toDate = null;
+	private Date fromDate, toDate;
 
 	private int fromHour, fromMinute, toHour, toMinute;
 
@@ -127,10 +126,18 @@ public class AddHours extends FragmentActivity implements OnClickListener, Notif
 			Utils u = new Utils();
 			u.showMessage("Enter Dates", "Please specify from and to dates", AddHours.this).run();
 		}
+		else if (toDate.before(fromDate))
+		{
+			Utils u = new Utils();
+			u.showMessage("Wrong Dates", "To date cannot be before from date", AddHours.this).run();
+		}
 		else
 		{
 			Spinner taskSpinner = (Spinner) findViewById(R.id.ah_tasks_spinner);
 			String jobTitle = (String) taskSpinner.getSelectedItem();
+
+			WorkHours wh = new WorkHours();
+			wh.setJobTitle(jobTitle);
 
 			Calendar c = Calendar.getInstance();
 			c.setTime(fromDate);
@@ -138,13 +145,21 @@ public class AddHours extends FragmentActivity implements OnClickListener, Notif
 			c.set(Calendar.MINUTE, fromMinute);
 			fromDate = c.getTime();
 
+			long time = c.getTimeInMillis();
+			time += Helper.getTimeOffset(time);
+			wh.setCheckInTime(time);
+
 			c.setTime(toDate);
 			c.set(Calendar.HOUR_OF_DAY, toHour);
 			c.set(Calendar.MINUTE, toMinute);
 			toDate = c.getTime();
 
+			time = c.getTimeInMillis();
+			time += Helper.getTimeOffset(time);
+			wh.setCheckOutTime(time);
+
 			ADTDBHelper db = new ADTDBHelper(AddHours.this);
-			if (db.addHours(fromDate, toDate, jobTitle))
+			if (db.addHours(wh))
 			{
 				Toast.makeText(getApplicationContext(), "Hours Added", Toast.LENGTH_SHORT).show();
 				// TODO if hours are added reset the labels of the buttons

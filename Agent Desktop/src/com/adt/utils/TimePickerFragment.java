@@ -38,25 +38,35 @@ public class TimePickerFragment extends DialogFragment implements OnTimeSetListe
 	@Override
 	public void onTimeSet(TimePicker view, int hourOfDay, int minute)
 	{
-		timeBtn.setText(hourOfDay + ":" + minute);
+		String min = (String) (minute < 10 ? "0" + minute : Integer.toString(minute));
+		timeBtn.setText(hourOfDay + ":" + min);
 
 		int btnId = timeBtn.getId();
 
-		switch (btnId)
-		{
-		case R.id.ah_fromtime_btn:
+		if (btnId == R.id.ah_fromtime_btn || btnId == R.id.eh_fromtime_btn)
 		{
 			notifier.notify(hourOfDay, "FROMHOUR");
 			notifier.notify(minute, "FROMMINUTE");
-			break;
 		}
-		case R.id.ah_totime_btn:
+		else if (btnId == R.id.ah_totime_btn || btnId == R.id.eh_totime_btn)
 		{
 			notifier.notify(hourOfDay, "TOHOUR");
 			notifier.notify(minute, "TOMINUTE");
-			break;
 		}
-		}
-
+		// switch (btnId)
+		// {
+		// case R.id.ah_fromtime_btn:
+		// {
+		// notifier.notify(hourOfDay, "FROMHOUR");
+		// notifier.notify(minute, "FROMMINUTE");
+		// break;
+		// }
+		// case R.id.ah_totime_btn:
+		// {
+		// notifier.notify(hourOfDay, "TOHOUR");
+		// notifier.notify(minute, "TOMINUTE");
+		// break;
+		// }
+		// }
 	}
 }
