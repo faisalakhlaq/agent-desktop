@@ -141,4 +141,8 @@
     <string name="eh_update_btn_lbl">Update Hours</string>
     <string name="title_activity_edit_hour">Edit Hours</string>
 
+    <!-- SMS EMAIL MENU -->
+    <string name="sms_btn_lbl">Send SMS</string>
+    <string name="email_btn_lbl">Send EMAIL</string>
+
 </resources>
