@@ -58,9 +58,7 @@ public class HoursListAdapter extends ArrayAdapter<WorkHours>
 			}
 			ViewHolder holder = (ViewHolder) rowView.getTag();
 			holder.title.setText(hour.getJobTitle());
-			long totalHours = hour.getTotalHours();
-			Helper helper = new Helper();
-			holder.totalHours.setText(helper.convertMSFormated(totalHours));
+			holder.totalHours.setText(hour.getStringDuration());
 		}
 		return rowView;
 	}

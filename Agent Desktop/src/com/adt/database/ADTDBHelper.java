@@ -495,10 +495,11 @@ public class ADTDBHelper extends SQLiteOpenHelper
 			openDataBase();
 			cursor = adtDB.rawQuery("Select * from hours where job_title LIKE '" + taskName + "';", null);
 
+			int totalHours = 0, totalMins = 0, totalSec = 0;
 			while (cursor.moveToNext())
 			{
 				long checkInTime = cursor.getLong(1);
-				long totalHours = cursor.getLong(3);
+				long duration = cursor.getLong(3);
 				boolean active = cursor.getString(4).equalsIgnoreCase("TRUE");
 				/*
 				 * if the total hours is zero and user has checked in for the
@@ -506,14 +507,26 @@ public class ADTDBHelper extends SQLiteOpenHelper
 				 * total time wont be available. Therefore, we have to calculate
 				 * total time.
 				 */
-				if (totalHours == 0 && checkInTime != 0 && active)
+				if (duration == 0 && checkInTime != 0 && active)
 				{
 					long time = Calendar.getInstance().getTimeInMillis();
 					time += Helper.getTimeOffset(time);
-					totalHours = (new Date(time)).getTime() - (new Date(checkInTime)).getTime();
+					duration = (new Date(time)).getTime() - (new Date(checkInTime)).getTime();
 				}
-				hours.setTotalHours(hours.getTotalHours() + totalHours);
+				Helper helper = new Helper();
+				String hms = helper.msToHMS(duration);
+				String[] time = hms.split(":");
+				totalHours += Integer.parseInt(time[0]);
+				totalMins += Integer.parseInt(time[1]);
+				totalSec += Integer.parseInt(time[2]);
 			}
+			totalMins += totalSec / 60;
+			totalSec %= 60;
+			totalHours += totalMins / 60;
+			totalMins %= 60;
+			String totalDuration = (totalHours < 10 ? "0" + totalHours : totalHours) + ":" + (totalMins < 10 ? "0" + totalMins : totalMins) + ":"
+					+ (totalSec < 10 ? "0" + totalSec : totalSec);
+			hours.setStringDuration(totalDuration);
 		}
 		catch (Exception e)
 		{

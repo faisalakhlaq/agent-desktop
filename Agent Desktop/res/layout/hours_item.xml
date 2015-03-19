@@ -6,7 +6,7 @@
     android:id="@+id/hi_linear_layout"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:background="#009900"
+    android:background="#33ffffff"
     android:orientation="horizontal"
     android:weightSum="1" >
 
@@ -17,7 +17,7 @@
         android:layout_marginLeft="10dp"
         android:layout_weight=".5"
         android:gravity="center_vertical"
-        android:textColor="#FFFFFF" />
+        android:textColor="#ffffff" />
 
     <TextView
         android:id="@+id/total_hours_tv"
@@ -27,6 +27,6 @@
         android:layout_marginRight="10dp"
         android:layout_weight=".5"
         android:gravity="center_vertical"
-        android:textColor="#FFFFFF" />
+        android:textColor="#ffffff" />
 
 </LinearLayout>
