@@ -1,10 +1,14 @@
 package com.adt.app;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -12,6 +16,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -20,6 +25,7 @@ import com.adt.adapters.HoursDetailAdapter;
 import com.adt.database.ADTDBHelper;
 import com.adt.model.WorkHours;
 import com.adt.utils.DeleteBtnVisibilityListener;
+import com.adt.utils.Helper;
 import com.adt.utils.Notifier;
 import com.adt.utils.Utils;
 
@@ -67,6 +73,11 @@ public class HoursDetailActivity extends Activity implements OnClickListener, No
 		listView.setOnItemClickListener(this);
 		listView.setDescendantFocusability(ListView.FOCUS_BLOCK_DESCENDANTS);
 
+		addButtonListeners();
+	}
+
+	private void addButtonListeners()
+	{
 		ImageButton homeBtn = (ImageButton) findViewById(R.id.adt_header_home);
 		homeBtn.setOnClickListener(this);
 
@@ -75,6 +86,9 @@ public class HoursDetailActivity extends Activity implements OnClickListener, No
 
 		ImageButton doneBtn = (ImageButton) findViewById(R.id.header_done_btn);
 		doneBtn.setOnClickListener(this);
+
+		ImageButton menuBtn = (ImageButton) findViewById(R.id.menu);
+		menuBtn.setOnClickListener(this);
 	}
 
 	Runnable populate = new Runnable()
@@ -100,6 +114,11 @@ public class HoursDetailActivity extends Activity implements OnClickListener, No
 		{
 			Intent i = new Intent(this, ADT.class);
 			startActivity(i);
+		}
+		else if (v.getId() == R.id.menu)
+		{
+			showDialog();
+			// TODO show the dialog displaying the menu
 		}
 		else if (v.getId() == R.id.adt_header_edit_btn)
 		{
@@ -197,5 +216,99 @@ public class HoursDetailActivity extends Activity implements OnClickListener, No
 				startActivity(i);
 			}
 		}
+	}
+
+	private void showDialog()
+	{
+		final Dialog dialog = new Dialog(this);
+		dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(R.layout.sms_email_menu);
+
+		Button smsBtn = (Button) dialog.findViewById(R.id.sms_btn);
+		smsBtn.setOnClickListener(new OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				// TODO start sms
+				dialog.dismiss();
+				sendSms();
+			}
+		});
+		Button emailBtn = (Button) dialog.findViewById(R.id.email_btn);
+		emailBtn.setOnClickListener(new OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				dialog.dismiss();
+				sendEmail();
+			}
+		});
+		dialog.show();
+	}
+
+	private void sendEmail()
+	{
+		String message = getSMSBody();
+		if (message == null)
+		{
+			Utils u = new Utils();
+			u.showMessage("Sorry", "No hours to send SMS", HoursDetailActivity.this).run();
+		}
+		else
+		{
+			Intent emailIntent = new Intent(Intent.ACTION_SEND);
+			emailIntent.setData(Uri.parse("mailto:"));
+			// emailIntent.putExtra(Intent.EXTRA_EMAIL, to);
+			// emailIntent.putExtra(Intent.EXTRA_CC, cc);
+			// emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+			emailIntent.putExtra(Intent.EXTRA_TEXT, message);
+			emailIntent.setType("message/rfc822");
+			startActivity(Intent.createChooser(emailIntent, "Email"));
+		}
+	}
+
+	private void sendSms()
+	{
+		String messageBody = getSMSBody();
+		if (messageBody == null)
+		{
+			Utils u = new Utils();
+			u.showMessage("Sorry", "No hours to send SMS", HoursDetailActivity.this).run();
+		}
+		else
+		{
+			Intent i = new Intent(android.content.Intent.ACTION_VIEW);
+			messageBody += "Job: " + i.putExtra("sms_body", messageBody);
+			i.setType("vnd.android-dir/mms-sms");
+			startActivity(i);
+		}
+	}
+
+	private String getSMSBody()
+	{
+		String messageBody = new String();
+		if (hoursList != null && hoursList.size() > 0)
+		{
+			String title = "";
+			Helper helper = new Helper();
+			for (WorkHours h : hoursList)
+			{
+				if (!title.equals(h.getJobTitle()))
+				{
+					title = h.getJobTitle();
+					messageBody += "Title: " + h.getJobTitle() + "\n\n";
+				}
+				String date = (new SimpleDateFormat("dd-MM-yy", Locale.getDefault()).format(h.getCheckInTime()));
+				messageBody += "Date: " + date + "\n" + "Start: " + helper.convertMSFormated(h.getCheckInTime()) + "\n" + "End: " + helper.convertMSFormated(h.getCheckOutTime())
+						+ "\n" + "Duration: " + helper.msToHMS(h.getTotalHours()) + "\n\n";
+			}
+		}
+		else
+		{
+			messageBody = null;
+		}
+		return messageBody;
 	}
 }
