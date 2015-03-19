@@ -19,7 +19,6 @@
     <string name="working_hours_edit_task_btn_hint">edit any task / job that you I created earlier</string>
     <string name="working_hours_show_hours_btn_lbl">Show Hours</string>
     <string name="working_hours_show_hours_btn_hint">display the hours worked</string>
-    <string name="working_hours_edit_hours_btn_lbl">Edit Hours</string>
     <string name="working_hours_edit_hours_btn_hint">edit my work hours</string>
     <string name="wht_addhour_btn_lbl">Add Hours</string>
     <string name="working_hours_view_calendar_btn_hint">display my calendar events</string>

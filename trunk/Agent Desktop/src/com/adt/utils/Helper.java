@@ -42,6 +42,8 @@ public class Helper
 	}
 
 	/**
+	 * Get the total hours, mins, sec from the given millisecond
+	 * <p>
 	 * Convert the millisecond to string in hh:mm:ss format Check if the number
 	 * of days are more then one then add hours instead of day
 	 */

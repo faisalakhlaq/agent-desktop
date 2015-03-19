@@ -8,7 +8,7 @@ public class WorkHours implements Serializable
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private boolean editMode = false;
 
 	private String jobTitle = null;
@@ -18,6 +18,8 @@ public class WorkHours implements Serializable
 	private long checkOutTime = 0;
 
 	private long totalHours = 0;
+
+	private String stringDuration;
 
 	public WorkHours()
 	{
@@ -88,9 +90,19 @@ public class WorkHours implements Serializable
 	{
 		editMode = editMode_;
 	}
-	
+
 	public boolean isEditMode()
 	{
 		return editMode;
+	}
+
+	public String getStringDuration()
+	{
+		return stringDuration;
+	}
+
+	public void setStringDuration(String stringDuration)
+	{
+		this.stringDuration = stringDuration;
 	}
 }
